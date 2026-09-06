@@ -1,8 +1,16 @@
-# Aiiko Music
+<p align="center">
+  <img src="images/now_playing.png" alt="Aiiko Music">
+</p>
 
-A desktop music player for your own music library and I'm so cooking .
+<h1 align="center">Aiiko Music</h1>
 
+<p align="center">
+  A desktop music player for your own music library.
+</p>
+
+<p align="center">
 Aiiko Music is a local music player for Windows, designed around personal music collections. It brings playback, albums, artists, playlists, lyrics and metadata together in one place.
+</p>
 
 ## Features
 
@@ -21,10 +29,32 @@ Aiiko Music is a local music player for Windows, designed around personal music 
 - Floating mini player
 - Appearance and accent customization
 - Last.fm scrrobbling
+- Lyrics editor
 
 ## Screenshots
 
-Waiing
+<p align="center">
+  <img src="images/library.png" alt="Aiiko Music Library" width="48%">
+  <img src="images/home.png" alt="Aiiko Music Player" width="48%">
+</p>
+
+<p align="center">
+  <img src="images/universal_search.png" alt="Aiiko Music Album" width="48%">
+  <img src="images/artist_detail.png" alt="Aiiko Music Settings" width="48%">
+</p>
+
+<p align="center">
+  <img src="images/artist.png" alt="Aiiko Music Album" width="48%">
+  <img src="images/playlist.png" alt="Aiiko Music Settings" width="48%">
+</p>
+
+## Lyrics editor
+
+Advanced lyrics editor and search tool
+
+<p align="center">
+  <img src="images/lyrics_edit.png" alt="Aiiko Music Album" width="48%">
+</p>
 
 ## Supported Audio
 
