@@ -17,10 +17,11 @@ Aiiko Music is a local music player for Windows, designed around personal music 
 - Local music library
 - Album and artist browsing
 - Playlist management
+- 10-band equalizer
 - Queue and shuffle playback
 - Gapless playback
-- Lyrics support, including `.lrc` files
-- Metadata editing
+- Lyrics support, including `.lrc` files and online lyrics finder
+- Metadata editor
 - Album artwork
 - Audio visualizer
 - Discord Rich Presence
@@ -30,6 +31,7 @@ Aiiko Music is a local music player for Windows, designed around personal music 
 - Appearance and accent customization
 - Last.fm scrrobbling
 - Lyrics editor
+- Fullscreen viewer
 
 ## Screenshots
 
