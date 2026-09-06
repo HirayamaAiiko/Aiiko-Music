@@ -62,11 +62,15 @@ Advanced lyrics editor and search tool
 
 Aiiko Music supports common audio formats through its playback engine, including:
 
-- MP3
-- FLAC
-- WAV
-- OGG
-- M4A
+<p>
+  <img src="images/icons/mp3.svg" width="64" alt="MP3">&nbsp;&nbsp;&nbsp;
+  <img src="images/icons/flac.svg" width="64" alt="FLAC">&nbsp;&nbsp;&nbsp;
+  <img src="images/icons/wav.svg" width="64" alt="WAV">&nbsp;&nbsp;&nbsp;
+  <img src="images/icons/ogg.svg" width="64" alt="OGG">&nbsp;&nbsp;&nbsp;
+  <img src="images/icons/acc.svg" width="64" alt="ACC">&nbsp;&nbsp;&nbsp;
+  <img src="images/icons/aiiko.svg" width="64" alt="AIIKO">&nbsp;&nbsp;&nbsp;
+  <img src="images/icons/m4a.svg" width="64" alt="M4A">
+</p>
 
 Format support may depend on the capabilities of the playback engine.
 
@@ -83,9 +87,10 @@ Aiiko Music is built with Python and Qt.
 - [Pillow](https://python-pillow.org/)
 
 Check requeriments.txt
+
 Third-party libraries and components are maintained by their respective authors and are subject to their own licenses.
 
-## Installation
+## Installation & Download
 
 The easiest way to use Aiiko Music is to download the latest release:
 
