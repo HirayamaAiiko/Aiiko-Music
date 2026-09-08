@@ -90,11 +90,15 @@ Check requeriments.txt
 
 Third-party libraries and components are maintained by their respective authors and are subject to their own licenses.
 
-## Installation & Download
+## Installation & Download - Windows 10 & 11
 
 The easiest way to use Aiiko Music is to download the latest release:
 
 [Download Aiiko Music](https://github.com/HirayamaAiiko/Aiiko-Music/releases)
+
+1. Extract the zip file to a folder.
+
+2. Launch the .exe and follow the on-screen prompts that the app displays upon first launch.
 
 To run the project from source:
 
@@ -106,6 +110,10 @@ python main.py
 ```
 
 Aiiko Music currently targets Windows.
+
+## Languages (WIP)
+
+Currently limited in implementation and built based on my own Spanish language skills; it includes French and English, though some parts of the interface remain incomplete.
 
 ## BASS Licensing
 
