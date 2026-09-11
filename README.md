@@ -106,7 +106,7 @@ To run the project from source:
 git clone https://github.com/HirayamaAiiko/Aiiko-Music.git
 cd Aiiko-Music
 pip install -r requirements.txt
-python main.py
+python app/main.py
 ```
 
 Aiiko Music currently targets Windows.
