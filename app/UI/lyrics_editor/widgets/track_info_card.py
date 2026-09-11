@@ -1,0 +1,126 @@
+﻿                       
+import os
+from PyQt6.QtCore import Qt, QRectF
+from PyQt6.QtGui import QPainter, QColor
+from PyQt6.QtWidgets import QFrame, QHBoxLayout, QVBoxLayout, QLabel
+from qfluentwidgets import BodyLabel, ToolButton, FluentIcon as FIF
+from core.language_manager import tr
+from UI.lyrics_editor.components import ElidedLabel
+from utils import get_rounded_pixmap
+class BadgeLabel(QLabel):
+    def __init__(self, text="", parent=None):
+        super().__init__(text, parent)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.bg_color = QColor(255, 255, 255, 25)
+        self.text_color = QColor(204, 204, 204)       
+        self.setContentsMargins(6, 2, 6, 2)
+        font = self.font()
+        font.setPixelSize(12)
+        font.setBold(True)
+        self.setFont(font)
+    def set_active(self, is_active):
+        if is_active:
+            self.bg_color = QColor(29, 185, 84, 38)                          
+            self.text_color = QColor("#1DB954")
+        else:
+            self.bg_color = QColor(255, 255, 255, 25)                           
+            self.text_color = QColor("#CCCCCC")
+        self.update()
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(self.bg_color)
+        rect = QRectF(0.5, 0.5, self.width() - 1.0, self.height() - 1.0)
+        painter.drawRoundedRect(rect, 4.0, 4.0)
+        painter.setPen(self.text_color)
+        painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, self.text())
+        painter.end()
+class TrackInfoCard(QFrame):
+    def __init__(self, track, accent_color, parent=None):
+        super().__init__(parent)
+        self.track = track
+        self.accent_color = accent_color
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.init_ui()
+    def init_ui(self):
+        card_layout = QHBoxLayout(self)
+        card_layout.setContentsMargins(16, 16, 16, 16)
+        card_layout.setSpacing(16)
+        cover_lbl = QLabel()
+        cover_lbl.setFixedSize(100, 100)
+        cover_lbl.setPixmap(get_rounded_pixmap(self.track.cover_path, 100, 0))
+        card_layout.addWidget(cover_lbl)
+        info_layout = QVBoxLayout()
+        info_layout.setSpacing(4)
+        info_layout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        track_title = ElidedLabel(self.track.title)
+        track_title.setStyleSheet("font-size: 18px; font-weight: bold; color: white; border: none; background: transparent;")
+        track_artist = ElidedLabel(self.track.artist)
+        track_artist.setStyleSheet("color: #CCC; font-size: 13px; border: none; background: transparent;")
+        total_seconds = getattr(self.track, 'duration', 0) / 1000
+        mins = int(total_seconds // 60)
+        secs = int(total_seconds % 60)
+        track_dur = BodyLabel(f"Duración: {mins:02d}:{secs:02d}")
+        track_dur.setStyleSheet("color: #888; font-size: 12px; border: none; background: transparent;")
+        info_layout.addWidget(track_title)
+        info_layout.addWidget(track_artist)
+        info_layout.addWidget(track_dur)
+        card_layout.addLayout(info_layout, 1)
+        divider = QFrame()
+        divider.setFrameShape(QFrame.Shape.VLine)
+        divider.setStyleSheet("QFrame { background-color: rgba(255, 255, 255, 0.1); border: none; max-width: 1px; margin-top: 10px; margin-bottom: 10px; }")
+        meta_layout = QVBoxLayout()
+        meta_layout.setSpacing(8)
+        meta_layout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        format_layout = QHBoxLayout()
+        format_layout.setSpacing(8)
+        lbl_f_title = QLabel(tr("FORMATO:"))
+        lbl_f_title.setStyleSheet("color: #888; font-size: 11px; font-weight: bold; background: transparent; border: none;")
+        self.lbl_format_val = QLabel("Desconocido")
+        self.lbl_format_val.setStyleSheet(f"color: {self.accent_color}; font-size: 12px; font-weight: bold; background: transparent; border: none;")
+        format_layout.addWidget(lbl_f_title)
+        format_layout.addWidget(self.lbl_format_val)
+        format_layout.addStretch()
+        source_layout = QHBoxLayout()
+        source_layout.setSpacing(8)
+        lbl_s_title = QLabel(tr("ORIGEN:"))
+        lbl_s_title.setStyleSheet("color: #888; font-size: 11px; font-weight: bold; background: transparent; border: none;")
+        self.lbl_source = BadgeLabel("Sin letra")
+        self.update_source_badge("Sin letra", False)
+        source_layout.addWidget(lbl_s_title)
+        source_layout.addWidget(self.lbl_source)
+        source_layout.addStretch()
+        meta_layout.addLayout(format_layout)
+        meta_layout.addLayout(source_layout)
+        card_layout.addWidget(divider)
+        card_layout.addSpacing(16)
+        card_layout.addLayout(meta_layout)
+        card_layout.addSpacing(16)
+        self.btn_loc = ToolButton(FIF.FOLDER)
+        self.btn_loc.setToolTip(tr("Ver ubicación del archivo"))
+        self.btn_loc.setFixedHeight(34)
+        self.btn_loc.clicked.connect(lambda: __import__('subprocess').run(['explorer', '/select,', os.path.normpath(self.track.filepath)]) if os.path.exists(self.track.filepath) else None)
+        card_layout.addWidget(self.btn_loc, alignment=Qt.AlignmentFlag.AlignVCenter)
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        bg_color = QColor(255, 255, 255, 8)                                              
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(bg_color)
+        painter.drawRoundedRect(0, 0, self.width(), self.height(), 8.0, 8.0)
+        border_color = QColor(255, 255, 255, 13)                                               
+        pen = painter.pen()
+        pen.setColor(border_color)
+        pen.setWidthF(1.0)
+        painter.setPen(pen)
+        painter.setBrush(Qt.BrushStyle.NoBrush)
+        rect = QRectF(0.5, 0.5, self.width() - 1.0, self.height() - 1.0)
+        painter.drawRoundedRect(rect, 7.5, 7.5)
+        painter.end()
+    def update_source_badge(self, text, is_local=False):
+        self.lbl_source.setText(text)
+        self.lbl_source.set_active(is_local)
+    def update_format_val(self, text):
+        self.lbl_format_val.setText(text)
