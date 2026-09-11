@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Soft Daybreak",
+    "main_bg": "#36393F",
+    "mini_player_bg": "#40444B",
+    "mini_player_border": "#4F545C",
+    "now_playing_bg": "#36393F",
+    "page_content_bg": "#36393F",
+    "queue_bg": "#40444B",
+    "queue_border": "#4F545C",
+    "sidebar_bg": "#2F3136",
+    "spotlight_bg": "#40444B",
+    "spotlight_border": "#4F545C",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.20,
+        "radius": 800,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

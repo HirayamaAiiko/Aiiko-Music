@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Dark",
+    "main_bg": "#202020",
+    "mini_player_bg": "#161616",
+    "mini_player_border": "#383838",
+    "now_playing_bg": null,
+    "page_content_bg": null,
+    "queue_bg": "#161616",
+    "queue_border": "#333",
+    "sidebar_bg": null,
+    "spotlight_bg": null,
+    "spotlight_border": null,
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.15,
+        "radius": 800,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

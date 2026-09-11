@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Graphite Frost",
+    "main_bg": "#2A2A33",
+    "mini_player_bg": "#363642",
+    "mini_player_border": "#4C4C5C",
+    "now_playing_bg": "#2A2A33",
+    "page_content_bg": "#2A2A33",
+    "queue_bg": "#363642",
+    "queue_border": "#4C4C5C",
+    "sidebar_bg": "#202028",
+    "spotlight_bg": "#363642",
+    "spotlight_border": "#4C4C5C",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.15,
+        "radius": 800,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

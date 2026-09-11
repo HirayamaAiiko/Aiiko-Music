@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Night",
+    "main_bg": "#080808",
+    "mini_player_bg": "#0C0C0C",
+    "mini_player_border": "#1A1A1A",
+    "now_playing_bg": "#080808",
+    "page_content_bg": "#0A0A0A",
+    "queue_bg": "#0C0C0C",
+    "queue_border": "#1A1A1A",
+    "sidebar_bg": "#000000",
+    "spotlight_bg": "#0C0C0C",
+    "spotlight_border": "#1A1A1A",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.12,
+        "radius": 800,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

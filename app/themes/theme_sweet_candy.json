@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Sweet Candy",
+    "main_bg": "#24141E",
+    "mini_player_bg": "#331A28",
+    "mini_player_border": "#4A273A",
+    "now_playing_bg": "#24141E",
+    "page_content_bg": "#2A1723",
+    "queue_bg": "#331A28",
+    "queue_border": "#4A273A",
+    "sidebar_bg": "#1B0E15",
+    "spotlight_bg": "#331A28",
+    "spotlight_border": "#4A273A",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.25,
+        "radius": 850,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Obsidian Fluent",
+    "main_bg": "#16161C",
+    "mini_player_bg": "#23232D",
+    "mini_player_border": "#323244",
+    "now_playing_bg": "#16161C",
+    "page_content_bg": "#1C1C24",
+    "queue_bg": "#23232D",
+    "queue_border": "#323244",
+    "sidebar_bg": "#101015",
+    "spotlight_bg": "#23232D",
+    "spotlight_border": "#323244",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.15,
+        "radius": 800,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

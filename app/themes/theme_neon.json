@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Neon Amethyst",
+    "main_bg": "#1E0F2B",
+    "mini_player_bg": "#2D1842",
+    "mini_player_border": "#48266B",
+    "now_playing_bg": "#1E0F2B",
+    "page_content_bg": "#1E0F2B",
+    "queue_bg": "#2D1842",
+    "queue_border": "#48266B",
+    "sidebar_bg": "#13091C",
+    "spotlight_bg": "#2D1842",
+    "spotlight_border": "#48266B",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.15,
+        "radius": 800,
+        "x": 0.95,
+        "y": 0.0
+    }
+}

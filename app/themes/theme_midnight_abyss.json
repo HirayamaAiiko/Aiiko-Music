@@ -1,0 +1,22 @@
+{
+    "type": "theme",
+    "name": "Midnight Abyss",
+    "main_bg": "#0B1018",
+    "mini_player_bg": "#151E2B",
+    "mini_player_border": "#202D3F",
+    "now_playing_bg": "#0B1018",
+    "page_content_bg": "#101722",
+    "queue_bg": "#151E2B",
+    "queue_border": "#202D3F",
+    "sidebar_bg": "#070A0F",
+    "spotlight_bg": "#151E2B",
+    "spotlight_border": "#202D3F",
+    "gradient": {
+        "enabled": true,
+        "color": "accent",
+        "opacity": 0.18,
+        "radius": 850,
+        "x": 0.95,
+        "y": 0.0
+    }
+}
