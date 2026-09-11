@@ -137,6 +137,9 @@ Aiiko Music is developed by **Aiiko Hirayama**.
 
 Thanks to the authors and maintainers of the open-source projects and libraries used by Aiiko Music.
 
+Copyright © 2026 Aiiko Hirayama
+
+Licensed under GNU GPL-3.0.
 ---
 
 **Aiiko Music v1.0.1**
