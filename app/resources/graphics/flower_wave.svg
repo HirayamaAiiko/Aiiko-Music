@@ -1,0 +1,81 @@
+<svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Soft Glow for gold elements -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Linear Gradient for main teal elements -->
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D9488" />
+      <stop offset="100%" stop-color="#5EEAD4" />
+    </linearGradient>
+
+    <!-- Linear Gradient for gold -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+
+  <!-- Frost Stars -->
+  <path d="M 40,76 Q 40,80 44,80 Q 40,80 40,84 Q 40,80 36,80 Q 40,80 40,76" fill="#CCFBF1" opacity="0.6"/>
+<circle cx="40" cy="80" r="0.5" fill="#FFFFFF"/>
+<path d="M 160,46 Q 160,50 164,50 Q 160,50 160,54 Q 160,50 156,50 Q 160,50 160,46" fill="#CCFBF1" opacity="0.6"/>
+<circle cx="160" cy="50" r="0.5" fill="#FFFFFF"/>
+<path d="M 220,116 Q 220,120 224,120 Q 220,120 220,124 Q 220,120 216,120 Q 220,120 220,116" fill="#CCFBF1" opacity="0.6"/>
+<circle cx="220" cy="120" r="0.5" fill="#FFFFFF"/>
+<path d="M 70,146 Q 70,150 74,150 Q 70,150 70,154 Q 70,150 66,150 Q 70,150 70,146" fill="#CCFBF1" opacity="0.6"/>
+<circle cx="70" cy="150" r="0.5" fill="#FFFFFF"/>
+<path d="M 240,56 Q 240,60 244,60 Q 240,60 240,64 Q 240,60 236,60 Q 240,60 240,56" fill="#CCFBF1" opacity="0.6"/>
+<circle cx="240" cy="60" r="0.5" fill="#FFFFFF"/>
+
+  <!-- DNA Rungs -->
+  <line x1="140" y1="180" x2="142" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="150" y1="180" x2="152" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="160" y1="180" x2="162" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="170" y1="180" x2="172" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="185" y1="180" x2="187" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="195" y1="180" x2="197" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="210" y1="180" x2="212" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="220" y1="180" x2="222" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="235" y1="180" x2="237" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+<line x1="245" y1="180" x2="247" y2="215" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="1"/>
+
+  <!-- Secondary DNA Strand (Pale/Frost) -->
+  <path d="M 125,195 C 140,195 145,170 155,170 C 165,170 170,225 180,225 C 190,225 195,155 205,155 C 215,155 220,210 230,210 C 240,210 245,180 255,180" fill="none" stroke="#CCFBF1" stroke-width="1" stroke-opacity="0.4" stroke-linejoin="round" stroke-linecap="round"/>
+  
+  <!-- Flower Petals & Main Stem & Primary DNA -->
+  <g fill="none" stroke="url(#tealGrad)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M 105.72,86.70 C 121.39,68.61 115.16,37.13 115.16,37.13 C 115.16,37.13 104.60,37.40 100.00,40.50 C 95.40,37.40 84.84,37.13 84.84,37.13 C 78.61,68.61 94.28,86.70 94.28,86.70"/> <path d="M 104.90,94.42 C 126.95,103.73 154.97,88.08 154.97,88.08 C 154.97,88.08 151.45,78.12 147.08,74.70 C 148.60,69.37 145.60,59.24 145.60,59.24 C 113.73,63.05 101.37,83.54 101.37,83.54"/> <path d="M 97.32,96.03 C 95.27,119.88 118.81,141.68 118.81,141.68 C 118.81,141.68 127.19,135.26 129.10,130.05 C 134.64,129.85 143.34,123.86 143.34,123.86 C 129.88,94.73 106.56,89.31 106.56,89.31"/> <path d="M 93.44,89.31 C 70.12,94.73 56.66,123.86 56.66,123.86 C 56.66,123.86 65.36,129.85 70.90,130.05 C 72.81,135.26 81.19,141.68 81.19,141.68 C 104.73,119.88 102.68,96.03 102.68,96.03"/> <path d="M 98.63,83.54 C 86.27,63.05 54.40,59.24 54.40,59.24 C 54.40,59.24 51.40,69.37 52.92,74.70 C 48.55,78.12 45.03,88.08 45.03,88.08 C 73.05,103.73 95.10,94.42 95.10,94.42"/> <path d="M 203.18,73.18 Q 210.61,59.39 196.82,66.82 Q 197.0,70 203.18,73.18"/>
+    <path d="M 195,75 Q 185,95 190,110"/>
+    <path d="M 30,220 C 60,250 80,240 90,205"/>
+    <path d="M 90,205 C 95,175 98,160 100,150"/>
+    <path d="M 90,205 C 105,185 115,195 125,195"/>
+    <path d="M 125,195 C 140,195 145,220 155,220 C 165,220 170,165 180,165 C 190,165 195,235 205,235 C 215,235 220,180 230,180 C 240,180 245,210 255,210"/>
+  </g>
+  
+  <!-- Stamens and Center Dots -->
+  <line x1="100.0" y1="84.0" x2="100.0" y2="68.0" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="105.7" y1="88.1" x2="120.9" y2="83.2" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="103.5" y1="94.9" x2="112.9" y2="107.8" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="96.5" y1="94.9" x2="87.1" y2="107.8" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="94.3" y1="88.1" x2="79.1" y2="83.2" stroke="url(#goldGrad)" stroke-width="1.2" stroke-linecap="round"/>
+  <circle cx="100.0" cy="68.0" r="2" fill="#FCD34D" filter="url(#glow)"/>
+<circle cx="120.9" cy="83.2" r="2" fill="#FCD34D" filter="url(#glow)"/>
+<circle cx="112.9" cy="107.8" r="2" fill="#FCD34D" filter="url(#glow)"/>
+<circle cx="87.1" cy="107.8" r="2" fill="#FCD34D" filter="url(#glow)"/>
+<circle cx="79.1" cy="83.2" r="2" fill="#FCD34D" filter="url(#glow)"/>
+<circle cx="100" cy="90" r="4" fill="none" stroke="#FCD34D" stroke-width="1"/>
+<circle cx="100" cy="90" r="1.5" fill="#FCD34D"/>
+  
+  <!-- Glowing Nodes -->
+  <circle cx="30" cy="220" r="3" fill="#FCD34D" filter="url(#glow)"/>
+  <circle cx="125" cy="195" r="3" fill="#FCD34D" filter="url(#glow)"/>
+  <circle cx="255" cy="210" r="3" fill="#FCD34D" filter="url(#glow)"/>
+  <circle cx="255" cy="180" r="3" fill="#FCD34D" filter="url(#glow)"/>
+</svg>

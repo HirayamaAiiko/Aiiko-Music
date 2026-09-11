@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+    <defs>
+        <linearGradient id="doc-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2D2D3A"/>
+            <stop offset="100%" stop-color="#14141C"/>
+        </linearGradient>
+        <linearGradient id="album-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop stop-color="#07DFD1"/>
+            <stop offset="1" stop-color="#0AAFB5"/>
+        </linearGradient>
+    </defs>
+    
+    <rect x="0" y="0" width="256" height="256" fill="url(#doc-bg)" stroke="#1A1A24" stroke-width="1"/>
+    <rect x="1" y="1" width="254" height="254" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.12"/>
+    
+    <g transform="translate(128, 128)">
+        <!-- Outer Disc -->
+        <circle cx="0" cy="0" r="64" fill="#1C1C24" stroke="url(#album-glow)" stroke-width="6"/>
+        
+        <!-- Vinyl Grooves -->
+        <circle cx="0" cy="0" r="48" fill="none" stroke="url(#album-glow)" stroke-width="1.5" stroke-opacity="0.4"/>
+        <circle cx="0" cy="0" r="36" fill="none" stroke="url(#album-glow)" stroke-width="1.5" stroke-opacity="0.4"/>
+        
+        <!-- Label Area -->
+        <circle cx="0" cy="0" r="22" fill="url(#album-glow)"/>
+        
+        <!-- Center Hole -->
+        <circle cx="0" cy="0" r="6" fill="#14141C"/>
+    </g>
+</svg>
