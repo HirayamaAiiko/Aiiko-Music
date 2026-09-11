@@ -1,0 +1,28 @@
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1, 0, 1, 0),
+    prodvers=(1, 0, 1, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+    ),
+  kids=[
+    StringFileInfo(
+      [
+      StringTable(
+        '040904B0',
+        [StringStruct('CompanyName', 'Aiiko Labs'),
+        StringStruct('FileDescription', 'Aiiko Music'),
+        StringStruct('FileVersion', '1.0.1'),
+        StringStruct('InternalName', 'AiikoMusic'),
+        StringStruct('LegalCopyright', '© 2026 Aiiko Music. '),
+        StringStruct('OriginalFilename', 'AiikoMusic.exe'),
+        StringStruct('ProductName', 'Aiiko Music'),
+        StringStruct('ProductVersion', '1.0.1')])
+      ]), 
+    VarFileInfo([VarStruct('Translation', [1033, 1200])])
+  ]
+)
