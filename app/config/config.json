@@ -1,0 +1,10 @@
+{
+    "QFluentWidgets": {
+        "FontFamilies": [
+            "Inter",
+            "Segoe UI"
+        ],
+        "ThemeColor": "#ff009faa",
+        "ThemeMode": "Light"
+    }
+}
