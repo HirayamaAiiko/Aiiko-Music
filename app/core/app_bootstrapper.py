@@ -75,6 +75,12 @@ class AppBootstrapper:
         self._setup_excepthook()
         self._configure_ui_scaling()
         from PyQt6.QtWidgets import QApplication
+        try:
+            from qfluentwidgets import qconfig
+            from config import USER_DATA_DIR
+            qconfig.file = os.path.join(USER_DATA_DIR, "config", "config.json")
+        except Exception:
+            pass
         self._set_high_priority()
         self.app_instance = QApplication.instance()
         if not self.app_instance:

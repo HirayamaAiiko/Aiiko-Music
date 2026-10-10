@@ -9,7 +9,7 @@ else:
     INSTALL_ROOT = os.path.dirname(os.path.abspath(__file__))
     APP_ROOT = INSTALL_ROOT
 APP_NAME = "Aiiko Music"
-APP_VERSION = "1.0.1"
+APP_VERSION = "1.0.3"
 APP_AUTHOR = "Aiiko Hirayama"
 DISCORD_CLIENT_ID = "YOUR_DISCORD_CLIENT_ID"                               
 LASTFM_API_KEY = "YOUR_LASTFM_API_KEY"

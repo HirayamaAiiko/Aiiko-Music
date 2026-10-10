@@ -30,9 +30,10 @@ class EditorToolbar(QWidget):
         if cache_key in self._icon_cache:
             return self._icon_cache[cache_key]
         import os
+        from config import APP_ROOT
         from PyQt6.QtGui import QPixmap, QIcon, QPainter, QColor
         from PyQt6.QtCore import Qt
-        path = os.path.join("resources", "buttons", filename)
+        path = os.path.join(APP_ROOT, "resources", "buttons", filename)
         pixmap = QPixmap(path)
         if pixmap.isNull():
             return QIcon(path)

@@ -100,6 +100,7 @@ class LocateTrackButton(QWidget):
             self._fade_anim.setStartValue(self._opacity)
             self._fade_anim.setEndValue(1.0)
             self._fade_anim.start()
+        self.raise_()
         self._auto_hide_timer.start()
     def _force_hide(self):
         if not self.isHidden() and self._fade_anim.endValue() != 0.0:
@@ -156,7 +157,16 @@ class LocateTrackButton(QWidget):
         if not self.target_listview or self._target_index < 0: return
         try:
             model = self.target_listview.model()
-            index = model.index(self._target_index, 0)
+            if hasattr(model, 'sourceModel'):
+                source_model = model.sourceModel()
+                source_index = source_model.index(self._target_index, 0)
+                if source_index.isValid():
+                    index = model.mapFromSource(source_index)
+                else:
+                    return
+            else:
+                index = model.index(self._target_index, 0)
+            if not index.isValid(): return
             from PyQt6.QtWidgets import QAbstractItemView
             self.target_listview.scrollTo(index, QAbstractItemView.ScrollHint.PositionAtCenter)
         except Exception as e:

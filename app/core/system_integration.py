@@ -151,6 +151,13 @@ class SystemManager(QObject):
             self.restore_from_floating()
         else:
             self.floating_active = True
+            if hasattr(self.main_window, 'audio_engine'):
+                if self.main_window.audio_engine._monitor_timer.interval() != 33:
+                    self.main_window.audio_engine._monitor_timer.setInterval(33)
+                self.main_window.audio_engine.ui_visible = True
+            if hasattr(self.main_window, 'timer'):
+                if self.main_window.timer.interval() != 100:
+                    self.main_window.timer.setInterval(100)
             if current_track:
                 self.floating_player.update_track(current_track)
             self.floating_player.update_play_state(is_playing)
@@ -174,13 +181,14 @@ class SystemManager(QObject):
             self.fade_out_anim.start()
         else:
             self.main_window.hide()
-        if hasattr(self.main_window, 'audio_engine'):
-            if self.main_window.audio_engine._monitor_timer.interval() != 500:
-                self.main_window.audio_engine._monitor_timer.setInterval(500)
-            self.main_window.audio_engine.ui_visible = False
-        if hasattr(self.main_window, 'timer'):
-            if self.main_window.timer.interval() != 1000:
-                self.main_window.timer.setInterval(1000)
+        if not self.floating_active:
+            if hasattr(self.main_window, 'audio_engine'):
+                if self.main_window.audio_engine._monitor_timer.interval() != 500:
+                    self.main_window.audio_engine._monitor_timer.setInterval(500)
+                self.main_window.audio_engine.ui_visible = False
+            if hasattr(self.main_window, 'timer'):
+                if self.main_window.timer.interval() != 1000:
+                    self.main_window.timer.setInterval(1000)
     def restore_from_floating(self):
         self.floating_active = False
         if self.floating_player and self.floating_player.isVisible():
