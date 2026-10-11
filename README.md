@@ -107,7 +107,7 @@ Aiiko Music is built with Python and Qt, leveraging modern libraries for playbac
 - [pyqtgraph](https://www.pyqtgraph.org/) — Real-time audio visualization
 - [Pillow](https://python-pillow.org/) — Image processing and album artwork
 
-For a full list of dependencies, see [`requirements.txt`](requirements.txt). Third-party libraries and components are maintained by their respective authors and are subject to their own licenses.
+For a full list of dependencies, see [`requirements.txt`]([requirements.txt](https://github.com/HirayamaAiiko/Aiiko-Music/blob/central/app/requirements.txt)). Third-party libraries and components are maintained by their respective authors and are subject to their own licenses.
 
 ---
 
