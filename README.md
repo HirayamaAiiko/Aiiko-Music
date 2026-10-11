@@ -142,6 +142,6 @@ Copyright © 2026 Aiiko Hirayama
 Licensed under GNU GPL-3.0.
 ---
 
-**Aiiko Music v1.0.1**
+**Aiiko Music v1.0.3**
 
 [Repository](https://github.com/HirayamaAiiko/Aiiko-Music) · [Releases](https://github.com/HirayamaAiiko/Aiiko-Music/releases) · [Issues](https://github.com/HirayamaAiiko/Aiiko-Music/issues)
