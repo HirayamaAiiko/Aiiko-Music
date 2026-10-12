@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiiko Music — Music player for your personal library</title>
+  <meta name="description" content="Aiiko Music is a local music player for Windows, designed for personal music collections.">
+  <meta name="theme-color" content="#23232D">
+  <meta property="og:title" content="Aiiko Music">
+  <meta property="og:description" content="A music player for your personal library.">
+  <meta property="og:image" content="images/now_playing.png">
+  <link rel="icon" type="image/svg+xml" href="images/logo_full.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <main>
+    <!-- Inicio / Hero -->
+    <header class="hero wrap" id="inicio">
+      <div class="top-bar" data-reveal>
+        <div class="brand">
+          <img src="images/logo_full.svg" alt="Aiiko Music" width="28" height="28">
+          <span>Aiiko Music</span>
+        </div>
+
+        <div class="lang-switch" role="group" aria-label="Language">
+          <svg class="lucide lucide-globe lang-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+            <path d="M2 12h20"/>
+          </svg>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" class="lang-btn" data-lang="ja" aria-pressed="false">JA</button>
+          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+        </div>
+      </div>
+
+      <h1 data-reveal data-i18n="heroTitle">A music player for your personal library.</h1>
+
+      <p class="lede" data-reveal data-i18n="heroLede">
+        Aiiko Music is a local music player for Windows, designed for personal music collections.
+        It brings together playback, albums, artists, playlists, lyrics, and metadata into one cohesive experience.
+      </p>
+
+      <div class="actions" data-reveal>
+        <a class="btn btn-hero" id="heroDownloadBtn" href="https://github.com/HirayamaAiiko/Aiiko-Music/releases" target="_blank" rel="noopener">
+          <svg class="dl-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v13"/>
+            <path d="m6 10 6 6 6-6"/>
+            <path d="M4 20h16"/>
+          </svg>
+          <span data-i18n="heroDownload">Download for Windows</span>
+        </a>
+        <a class="link" href="https://github.com/HirayamaAiiko/Aiiko-Music" target="_blank" rel="noopener" data-i18n="heroSource">Source code on GitHub</a>
+      </div>
+
+      <p class="meta" data-reveal>
+        <span data-i18n="heroMeta">Windows 10 & 11 · Open Source (GPL-3.0)</span><span class="release" data-release hidden></span>
+      </p>
+
+      <figure class="shot" data-reveal>
+        <img id="heroShot" src="images/now_playing.png" alt="Aiiko Music playback view with synchronized lyrics" width="1366" height="742">
+      </figure>
+    </header>
+
+    <!-- Funciones -->
+    <section class="section wrap" id="funciones">
+      <h2 data-reveal data-i18n="featuresTitle">Features</h2>
+
+      <div class="rows" data-reveal>
+        <div class="row">
+          <h3 data-i18n="catLibraryTitle">Library</h3>
+          <ul>
+            <li data-i18n="fLibrary1">Local music library</li>
+            <li data-i18n="fLibrary2">Album and artist browsing</li>
+            <li data-i18n="fLibrary3">Playlist management</li>
+            <li data-i18n="fLibrary4">Full-library search</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 data-i18n="catPlaybackTitle">Playback</h3>
+          <ul>
+            <li data-i18n="fPlayback1">10-band equalizer</li>
+            <li data-i18n="fPlayback2">Queue and shuffle playback</li>
+            <li data-i18n="fPlayback3">Gapless playback</li>
+            <li data-i18n="fPlayback4">Audio visualizer</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 data-i18n="catLyricsTitle">Lyrics & metadata</h3>
+          <ul>
+            <li data-i18n="fLyrics1">Synchronized lyrics (.lrc & online search)</li>
+            <li data-i18n="fLyrics2">Built-in lyrics editor</li>
+            <li data-i18n="fLyrics3">Tag and metadata editor</li>
+            <li data-i18n="fLyrics4">Album art support</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 data-i18n="catInterfaceTitle">Interface</h3>
+          <ul>
+            <li data-i18n="fInterface1">Floating mini player</li>
+            <li data-i18n="fInterface2">Fullscreen display mode</li>
+            <li data-i18n="fInterface3">Theme and accent color customization</li>
+            <li data-i18n="fInterface4">Keyboard shortcuts</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 data-i18n="catIntegrationsTitle">Integrations</h3>
+          <ul>
+            <li data-i18n="fInteg1">Discord Rich Presence</li>
+            <li data-i18n="fInteg2">Last.fm scrobbling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capturas -->
+    <section class="section wrap" id="capturas">
+      <h2 data-reveal data-i18n="shotsTitle">Screenshots</h2>
+
+      <div class="tabs" role="tablist" aria-label="Screenshots" data-reveal>
+        <button class="tab" role="tab" aria-selected="true"  data-src="images/home.png"             data-w="1366" data-h="742" data-i18n="tabHome">Home</button>
+        <button class="tab" role="tab" aria-selected="false" data-src="images/library.png"          data-w="1366" data-h="742" data-i18n="tabLibrary">Library</button>
+        <button class="tab" role="tab" aria-selected="false" data-src="images/artist.png"           data-w="1366" data-h="742" data-i18n="tabArtists">Artists</button>
+        <button class="tab" role="tab" aria-selected="false" data-src="images/artist_detail.png"    data-w="1366" data-h="742" data-i18n="tabArtistDetail">Artist detail</button>
+        <button class="tab" role="tab" aria-selected="false" data-src="images/universal_search.png" data-w="1366" data-h="742" data-i18n="tabSearch">Search</button>
+        <button class="tab" role="tab" aria-selected="false" data-src="images/playlist.png"         data-w="1366" data-h="742" data-i18n="tabPlaylists">Playlists</button>
+        <button class="tab" role="tab" aria-selected="false" data-src="images/lyrics_edit.png"      data-w="1052" data-h="727" data-i18n="tabLyricsEditor">Lyrics editor</button>
+      </div>
+
+      <div class="stage" role="tabpanel" data-reveal>
+        <img id="stageImage" src="images/home.png" alt="Aiiko Music: Home" width="1366" height="742">
+      </div>
+    </section>
+
+    <!-- Formatos -->
+    <section class="section wrap" id="formatos">
+      <h2 data-reveal data-i18n="formatsTitle">Supported formats</h2>
+      <p class="sub" data-reveal data-i18n="formatsSub">Aiiko Music plays the most common audio formats, including:</p>
+
+      <div class="formats" data-reveal>
+        <img src="images/icons/mp3.svg"   alt="MP3"   width="56" height="56">
+        <img src="images/icons/flac.svg"  alt="FLAC"  width="56" height="56">
+        <img src="images/icons/wav.svg"   alt="WAV"   width="56" height="56">
+        <img src="images/icons/ogg.svg"   alt="OGG"   width="56" height="56">
+        <img src="images/icons/acc.svg"   alt="AAC"   width="56" height="56">
+        <img src="images/icons/m4a.svg"   alt="M4A"   width="56" height="56">
+        <img src="images/icons/aiiko.svg" alt="AIIKO" width="56" height="56">
+      </div>
+
+      <p class="note" data-reveal data-i18n="formatsNote">Format support depends on the underlying audio engine capabilities.</p>
+    </section>
+
+    <!-- Instalación -->
+    <section class="section wrap" id="instalacion">
+      <h2 data-reveal data-i18n="installTitle">Installation</h2>
+      <p class="sub" data-reveal data-i18n="installSub">For Windows 10 and 11. Download the latest release package to get started.</p>
+
+      <div class="install-actions" data-reveal>
+        <a class="btn-dl btn-dl-primary" id="directDownloadBtn" href="https://github.com/HirayamaAiiko/Aiiko-Music/releases/latest" target="_blank" rel="noopener">
+          <div class="btn-dl-icon" aria-hidden="true">
+            <svg class="dl-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v13"/>
+              <path d="m6 10 6 6 6-6"/>
+              <path d="M4 20h16"/>
+            </svg>
+          </div>
+          <div class="btn-dl-content">
+            <span class="btn-dl-title" data-i18n="dlPrimaryTitle">Download Latest Release</span>
+            <span class="btn-dl-desc" id="dlBadge" data-i18n="dlPrimaryDesc">Windows 10/11 (64-bit) · Portable ZIP</span>
+          </div>
+        </a>
+
+        <a class="btn-dl btn-dl-secondary" href="https://github.com/HirayamaAiiko/Aiiko-Music/releases" target="_blank" rel="noopener">
+          <div class="btn-dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </div>
+          <div class="btn-dl-content">
+            <span class="btn-dl-title" data-i18n="dlSecondaryTitle">All Releases</span>
+            <span class="btn-dl-desc" data-i18n="dlSecondaryDesc">GitHub Releases & Changelog</span>
+          </div>
+        </a>
+      </div>
+
+      <ol class="steps" data-reveal>
+        <li data-i18n="step1">Download the ZIP package using the button above.</li>
+        <li data-i18n="step2">Extract the files to your preferred folder.</li>
+        <li data-i18n="step3">Launch <code>Aiiko Music.exe</code> and follow the initial setup prompts.</li>
+      </ol>
+
+      <p class="note" data-reveal>
+        <span data-i18n="sourceNote">If you prefer running or building from source code, instructions are available in the</span>
+        <a class="inline" href="https://github.com/HirayamaAiiko/Aiiko-Music#readme" target="_blank" rel="noopener">README</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span data-i18n="footerCredit">Aiiko Music · Developed by Aiiko Hirayama · © 2026 · GPL-3.0 License</span>
+    <nav aria-label="Project links">
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="footerLicense">License</a>
+    </nav>
+  </footer>
+
+  <!-- Dock de navegación flotante adaptativo con todos los accesos -->
+  <nav class="dock" aria-label="Navigation">
+    <div class="dock-links">
+      <a class="dock-link" href="#inicio" data-target="inicio" data-i18n="navHome">Home</a>
+      <a class="dock-link" href="#funciones" data-target="funciones" data-i18n="navFeatures">Features</a>
+      <a class="dock-link" href="#capturas" data-target="capturas" data-i18n="navScreenshots">Screenshots</a>
+      <a class="dock-link" href="#formatos" data-target="formatos" data-i18n="navFormats">Formats</a>
+      <a class="dock-link" href="#instalacion" data-target="instalacion" data-i18n="navInstall">Installation</a>
+      <span class="dock-indicator" aria-hidden="true"></span>
+    </div>
+
+    <span class="dock-sep dock-sep-lang" aria-hidden="true"></span>
+
+    <!-- Selector completo de escritorio -->
+    <div class="dock-lang" role="group" aria-label="Language selector">
+      <button type="button" class="dock-lang-btn" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" class="dock-lang-btn" data-lang="es" aria-pressed="false">ES</button>
+      <button type="button" class="dock-lang-btn" data-lang="ja" aria-pressed="false">JA</button>
+      <button type="button" class="dock-lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
+
+    <!-- Botón compacto de idioma en móvil con icono Lucide Globe oficial (sin emojis) -->
+    <button type="button" class="dock-lang-mobile" id="dockLangMobile" aria-label="Change language">
+      <svg class="lucide lucide-globe" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+        <path d="M2 12h20"/>
+      </svg>
+      <span class="dock-lang-current" id="dockLangCurrent">EN</span>
+    </button>
+
+    <span class="dock-sep dock-sep-cta" aria-hidden="true"></span>
+
+    <a class="dock-cta" href="#instalacion" data-i18n="navDownload">Download</a>
+  </nav>
+
+  <script src="main.js"></script>
+</body>
+</html>
