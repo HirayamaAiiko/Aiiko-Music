@@ -1,21 +1,30 @@
 // Aiiko Music — Sitio web oficial
-// Soporte multilingüe (EN por defecto, detección del sistema, ES, JA, FR),
-// botones de descarga interactivos con enlace directo a release,
-// pestañas de capturas y dock de navegación con indicador activo.
+// Idioma (EN por defecto, detección del sistema, ES / JA / FR) con menú flotante,
+// pestañas de capturas, visor ampliado, dock con sección activa y
+// datos de la última release leídos desde la API de GitHub.
 
 (() => {
+  'use strict';
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Diccionario de idiomas ---------- */
+  /* ---------- Textos ---------- */
 
   const I18N = {
     en: {
       pageTitle: 'Aiiko Music — Music player for your personal library',
+      langLabel: 'Language',
+      dockLabel: 'Sections',
+      footerNav: 'Project links',
+      zoomLabel: 'Enlarge screenshot',
+      closeLabel: 'Close',
+
       heroTitle: 'A music player for your personal library.',
-      heroLede: 'Aiiko Music is a local music player for Windows, designed for personal music collections. It brings together playback, albums, artists, playlists, lyrics, and metadata into one cohesive experience.',
+      heroLede: 'Aiiko Music is a local music player for Windows, designed for personal music collections. It brings together playback, albums, artists, playlists, lyrics and metadata in one place.',
       heroDownload: 'Download for Windows',
       heroSource: 'Source code on GitHub',
-      heroMeta: 'Windows 10 & 11 · Open Source (GPL-3.0)',
+      heroMeta: 'Windows 10 & 11 · Open source (GPL-3.0)',
+      heroAlt: 'Aiiko Music now playing view with lyrics',
       releaseLabel: 'Latest release: {tag}',
 
       navHome: 'Home',
@@ -24,37 +33,40 @@
       navFormats: 'Formats',
       navInstall: 'Installation',
       navDownload: 'Download',
+      navHomeShort: 'Home',
+      navFeaturesShort: 'Features',
+      navScreenshotsShort: 'Screens',
+      navFormatsShort: 'Formats',
+      navInstallShort: 'Install',
+      navDownloadShort: 'Download',
 
       featuresTitle: 'Features',
       catLibraryTitle: 'Library',
       fLibrary1: 'Local music library',
       fLibrary2: 'Album and artist browsing',
       fLibrary3: 'Playlist management',
-      fLibrary4: 'Full-library search',
-
+      fLibrary4: 'Search across the whole library',
       catPlaybackTitle: 'Playback',
       fPlayback1: '10-band equalizer',
-      fPlayback2: 'Queue and shuffle playback',
+      fPlayback2: 'Queue and shuffle',
       fPlayback3: 'Gapless playback',
       fPlayback4: 'Audio visualizer',
-
       catLyricsTitle: 'Lyrics & metadata',
-      fLyrics1: 'Synchronized lyrics (.lrc & online search)',
-      fLyrics2: 'Built-in lyrics editor',
-      fLyrics3: 'Tag and metadata editor',
-      fLyrics4: 'Album art support',
-
+      fLyrics1: 'Lyrics, including .lrc files and online search',
+      fLyrics2: 'Lyrics editor',
+      fLyrics3: 'Metadata editor',
+      fLyrics4: 'Album art',
       catInterfaceTitle: 'Interface',
       fInterface1: 'Floating mini player',
-      fInterface2: 'Fullscreen display mode',
-      fInterface3: 'Theme and accent color customization',
+      fInterface2: 'Fullscreen view',
+      fInterface3: 'Appearance and accent customization',
       fInterface4: 'Keyboard shortcuts',
-
       catIntegrationsTitle: 'Integrations',
       fInteg1: 'Discord Rich Presence',
       fInteg2: 'Last.fm scrobbling',
 
       shotsTitle: 'Screenshots',
+      shotAltPrefix: 'Aiiko Music screenshot: ',
       tabHome: 'Home',
       tabLibrary: 'Library',
       tabArtists: 'Artists',
@@ -65,32 +77,37 @@
 
       formatsTitle: 'Supported formats',
       formatsSub: 'Aiiko Music plays the most common audio formats, including:',
-      formatsNote: 'Format support depends on the underlying audio engine capabilities.',
+      formatsNote: 'Format support depends on the capabilities of the playback engine.',
 
       installTitle: 'Installation',
-      installSub: 'For Windows 10 and 11. Download the latest release package to get started.',
-      dlPrimaryTitle: 'Download Latest Release',
-      dlPrimaryDesc: '{tag} · Windows 10/11 (64-bit) · Portable ZIP{size}',
-      dlSecondaryTitle: 'All Releases',
-      dlSecondaryDesc: 'GitHub Releases & Changelog',
+      installSub: 'For Windows 10 and 11. The easiest way is to download the latest release.',
+      dlPrimaryTitle: 'Download latest release',
+      dlSecondaryTitle: 'All releases',
+      dlSecondaryDesc: 'Previous versions and release notes',
+      step1: 'Download the ZIP file with the button above.',
+      step2: 'Extract it to a folder of your choice.',
+      step3: 'Open <code>Aiiko Music.exe</code> and follow the prompts shown on first launch.',
+      sourceNote: 'If you prefer to run it from source, the instructions are in the',
+      sourceNoteAfter: '.',
 
-      step1: 'Download the ZIP package using the button above.',
-      step2: 'Extract the files to your preferred folder.',
-      step3: 'Launch <code>Aiiko Music.exe</code> and follow the initial setup prompts.',
-      sourceNote: 'If you prefer running or building from source code, instructions are available in the',
-
-      footerCredit: 'Aiiko Music · Developed by Aiiko Hirayama · © 2026 · GPL-3.0 License',
-      footerLicense: 'License',
-      shotAltPrefix: 'Aiiko Music screenshot: '
+      footerCredit: 'Aiiko Music · Developed by Aiiko Hirayama · © 2026 · GPL-3.0',
+      footerLicense: 'License'
     },
 
     es: {
       pageTitle: 'Aiiko Music — Reproductor de música para tu propia biblioteca',
+      langLabel: 'Idioma',
+      dockLabel: 'Secciones',
+      footerNav: 'Enlaces del proyecto',
+      zoomLabel: 'Ampliar captura',
+      closeLabel: 'Cerrar',
+
       heroTitle: 'Un reproductor de música para tu propia biblioteca.',
       heroLede: 'Aiiko Music es un reproductor local para Windows, pensado para colecciones de música personales. Reúne reproducción, álbumes, artistas, listas, letras y metadatos en un solo lugar.',
       heroDownload: 'Descargar para Windows',
       heroSource: 'Código fuente en GitHub',
       heroMeta: 'Windows 10 y 11 · Código abierto (GPL-3.0)',
+      heroAlt: 'Vista de reproducción de Aiiko Music con letras',
       releaseLabel: 'Última versión: {tag}',
 
       navHome: 'Inicio',
@@ -99,6 +116,12 @@
       navFormats: 'Formatos',
       navInstall: 'Instalación',
       navDownload: 'Descargar',
+      navHomeShort: 'Inicio',
+      navFeaturesShort: 'Funciones',
+      navScreenshotsShort: 'Capturas',
+      navFormatsShort: 'Formatos',
+      navInstallShort: 'Instalar',
+      navDownloadShort: 'Descarga',
 
       featuresTitle: 'Funciones',
       catLibraryTitle: 'Biblioteca',
@@ -106,30 +129,27 @@
       fLibrary2: 'Navegación por álbumes y artistas',
       fLibrary3: 'Gestión de listas de reproducción',
       fLibrary4: 'Búsqueda en toda la biblioteca',
-
       catPlaybackTitle: 'Reproducción',
       fPlayback1: 'Ecualizador de 10 bandas',
       fPlayback2: 'Cola y reproducción aleatoria',
       fPlayback3: 'Reproducción sin pausas (gapless)',
       fPlayback4: 'Visualizador de audio',
-
       catLyricsTitle: 'Letras y metadatos',
-      fLyrics1: 'Letras sincronizadas (.lrc y búsqueda en línea)',
-      fLyrics2: 'Editor de letras integrado',
-      fLyrics3: 'Editor de etiquetas y metadatos',
+      fLyrics1: 'Letras, incluidos archivos .lrc y búsqueda en línea',
+      fLyrics2: 'Editor de letras',
+      fLyrics3: 'Editor de metadatos',
       fLyrics4: 'Carátulas de álbum',
-
       catInterfaceTitle: 'Interfaz',
       fInterface1: 'Mini reproductor flotante',
-      fInterface2: 'Modo a pantalla completa',
-      fInterface3: 'Personalización de temas y acento',
+      fInterface2: 'Vista a pantalla completa',
+      fInterface3: 'Personalización de apariencia y acento',
       fInterface4: 'Atajos de teclado',
-
       catIntegrationsTitle: 'Integraciones',
       fInteg1: 'Discord Rich Presence',
       fInteg2: 'Scrobbling en Last.fm',
 
       shotsTitle: 'Capturas',
+      shotAltPrefix: 'Captura de Aiiko Music: ',
       tabHome: 'Inicio',
       tabLibrary: 'Biblioteca',
       tabArtists: 'Artistas',
@@ -140,71 +160,79 @@
 
       formatsTitle: 'Formatos compatibles',
       formatsSub: 'Aiiko Music reproduce los formatos de audio más comunes, entre ellos:',
-      formatsNote: 'La compatibilidad puede depender de las capacidades del motor de reproducción.',
+      formatsNote: 'La compatibilidad depende de las capacidades del motor de reproducción.',
 
       installTitle: 'Instalación',
-      installSub: 'Para Windows 10 y 11. Descarga el paquete de la última versión publicada para comenzar.',
+      installSub: 'Para Windows 10 y 11. La forma más sencilla es descargar la última versión publicada.',
       dlPrimaryTitle: 'Descargar última versión',
-      dlPrimaryDesc: '{tag} · Windows 10/11 (64 bits) · ZIP portátil{size}',
-      dlSecondaryTitle: 'Todos los lanzamientos',
-      dlSecondaryDesc: 'Releases y cambios en GitHub',
+      dlSecondaryTitle: 'Todas las versiones',
+      dlSecondaryDesc: 'Versiones anteriores y notas de cada versión',
+      step1: 'Descarga el archivo ZIP con el botón de arriba.',
+      step2: 'Extráelo en la carpeta que prefieras.',
+      step3: 'Abre <code>Aiiko Music.exe</code> y sigue las indicaciones del primer inicio.',
+      sourceNote: 'Si prefieres ejecutarlo desde el código fuente, las instrucciones están en el',
+      sourceNoteAfter: '.',
 
-      step1: 'Descarga el paquete comprimido (.zip) con el botón superior.',
-      step2: 'Extrae los archivos en la carpeta de tu preferencia.',
-      step3: 'Abre <code>Aiiko Music.exe</code> y sigue las indicaciones en el primer inicio.',
-      sourceNote: 'Si prefieres compilar o ejecutar desde el código fuente, consulta el',
-
-      footerCredit: 'Aiiko Music · Desarrollado por Aiiko Hirayama · © 2026 · Licencia GPL-3.0',
-      footerLicense: 'Licencia',
-      shotAltPrefix: 'Captura de Aiiko Music: '
+      footerCredit: 'Aiiko Music · Desarrollado por Aiiko Hirayama · © 2026 · GPL-3.0',
+      footerLicense: 'Licencia'
     },
 
     ja: {
-      pageTitle: 'Aiiko Music — 個人ライブラリのための音楽プレーヤー',
-      heroTitle: 'あなたの個人ライブラリのための音楽プレーヤー。',
-      heroLede: 'Aiiko Music は、個人の音楽コレクションのために設計された Windows 向けローカル音楽プレーヤーです。再生、アルバム、アーティスト、プレイリスト、歌詞、メタデータをひとつにまとめます。',
-      heroDownload: 'Windows 向けダウンロード',
+      pageTitle: 'Aiiko Music — あなたの音楽ライブラリのためのプレーヤー',
+      langLabel: '言語',
+      dockLabel: 'セクション',
+      footerNav: 'プロジェクトのリンク',
+      zoomLabel: 'スクリーンショットを拡大',
+      closeLabel: '閉じる',
+
+      heroTitle: 'あなたの音楽ライブラリのための音楽プレーヤー。',
+      heroLede: 'Aiiko Music は、個人の音楽コレクションのために作られた Windows 向けのローカル音楽プレーヤーです。再生、アルバム、アーティスト、プレイリスト、歌詞、メタデータをひとつにまとめます。',
+      heroDownload: 'Windows 版をダウンロード',
       heroSource: 'GitHub でソースコードを見る',
       heroMeta: 'Windows 10 / 11 · オープンソース (GPL-3.0)',
-      releaseLabel: '最新リリース: {tag}',
+      heroAlt: 'Aiiko Music の再生画面（歌詞表示）',
+      releaseLabel: '最新バージョン: {tag}',
 
       navHome: 'ホーム',
       navFeatures: '機能',
       navScreenshots: 'スクリーンショット',
-      navFormats: 'フォーマット',
+      navFormats: '対応形式',
       navInstall: 'インストール',
       navDownload: 'ダウンロード',
+      navHomeShort: 'ホーム',
+      navFeaturesShort: '機能',
+      navScreenshotsShort: '画面',
+      navFormatsShort: '形式',
+      navInstallShort: '導入',
+      navDownloadShort: '入手',
 
-      featuresTitle: '主な機能',
+      featuresTitle: '機能',
       catLibraryTitle: 'ライブラリ',
       fLibrary1: 'ローカル音楽ライブラリ',
-      fLibrary2: 'アルバムおよびアーティストの閲覧',
+      fLibrary2: 'アルバム・アーティスト別の閲覧',
       fLibrary3: 'プレイリスト管理',
       fLibrary4: 'ライブラリ全体の検索',
-
-      catPlaybackTitle: '再生機能',
+      catPlaybackTitle: '再生',
       fPlayback1: '10バンドイコライザー',
-      fPlayback2: 'キューおよびシャッフル再生',
+      fPlayback2: 'キューとシャッフル再生',
       fPlayback3: 'ギャップレス再生',
       fPlayback4: 'オーディオビジュアライザー',
-
-      catLyricsTitle: '歌詞・メタデータ',
-      fLyrics1: '同期歌詞（.lrc およびオンライン検索）',
-      fLyrics2: '歌詞エディター内蔵',
-      fLyrics3: 'タグ・メタデータ編集',
-      fLyrics4: 'アルバムアート表示',
-
+      catLyricsTitle: '歌詞とメタデータ',
+      fLyrics1: '歌詞（.lrc ファイルとオンライン検索に対応）',
+      fLyrics2: '歌詞エディター',
+      fLyrics3: 'メタデータエディター',
+      fLyrics4: 'アルバムアート',
       catInterfaceTitle: 'インターフェース',
       fInterface1: 'フローティングミニプレーヤー',
-      fInterface2: '全画面表示モード',
-      fInterface3: 'テーマおよびアクセントカラーのカスタマイズ',
+      fInterface2: '全画面表示',
+      fInterface3: '外観とアクセントカラーのカスタマイズ',
       fInterface4: 'キーボードショートカット',
-
-      catIntegrationsTitle: '外部連携',
+      catIntegrationsTitle: '連携',
       fInteg1: 'Discord Rich Presence',
-      fInteg2: 'Last.fm スクロブリング',
+      fInteg2: 'Last.fm へのスクロブル',
 
       shotsTitle: 'スクリーンショット',
+      shotAltPrefix: 'Aiiko Music のスクリーンショット: ',
       tabHome: 'ホーム',
       tabLibrary: 'ライブラリ',
       tabArtists: 'アーティスト',
@@ -214,33 +242,38 @@
       tabLyricsEditor: '歌詞エディター',
 
       formatsTitle: '対応フォーマット',
-      formatsSub: 'Aiiko Music は主要なオーディオ形式に対応しています：',
-      formatsNote: '再生エンジンの仕様により互換性が異なる場合があります。',
+      formatsSub: 'Aiiko Music は一般的なオーディオ形式を再生できます。主な形式：',
+      formatsNote: '対応状況は再生エンジンの機能によって異なります。',
 
       installTitle: 'インストール',
-      installSub: 'Windows 10 および 11 対応。最新の公開パッケージをダウンロードしてご利用ください。',
-      dlPrimaryTitle: '最新版をダウンロード',
-      dlPrimaryDesc: '{tag} · Windows 10/11 (64bit) · ポータブル ZIP{size}',
-      dlSecondaryTitle: 'すべてのリリース履歴',
-      dlSecondaryDesc: 'GitHub Releases & 変更履歴',
+      installSub: 'Windows 10 / 11 対応。最新バージョンをダウンロードするのが最も簡単です。',
+      dlPrimaryTitle: '最新バージョンをダウンロード',
+      dlSecondaryTitle: 'すべてのバージョン',
+      dlSecondaryDesc: '過去のバージョンとリリースノート',
+      step1: '上のボタンから ZIP ファイルをダウンロードします。',
+      step2: '任意のフォルダーに展開します。',
+      step3: '<code>Aiiko Music.exe</code> を開き、初回起動時の案内に従ってください。',
+      sourceNote: 'ソースコードから実行する場合の手順は',
+      sourceNoteAfter: ' に記載しています。',
 
-      step1: '上のボタンから ZIP パッケージをダウンロードします。',
-      step2: '任意のフォルダにファイルを解凍します。',
-      step3: '<code>Aiiko Music.exe</code> を起動し、初回設定の案内に従ってください。',
-      sourceNote: 'ソースコードからのビルドや実行方法はリポジトリの',
-
-      footerCredit: 'Aiiko Music · 開発者: Aiiko Hirayama · © 2026 · GPL-3.0 ライセンス',
-      footerLicense: 'ライセンス',
-      shotAltPrefix: 'Aiiko Music スクリーンショット: '
+      footerCredit: 'Aiiko Music · 開発: Aiiko Hirayama · © 2026 · GPL-3.0',
+      footerLicense: 'ライセンス'
     },
 
     fr: {
       pageTitle: 'Aiiko Music — Lecteur de musique pour votre bibliothèque',
-      heroTitle: 'Un lecteur de musique pour votre bibliothèque personnelle.',
-      heroLede: 'Aiiko Music est un lecteur local pour Windows, conçu pour vos collections musicales personnelles. Il réunit lecture, albums, artistes, listes de lecture, paroles et métadonnées en un seul endroit.',
+      langLabel: 'Langue',
+      dockLabel: 'Sections',
+      footerNav: 'Liens du projet',
+      zoomLabel: 'Agrandir la capture',
+      closeLabel: 'Fermer',
+
+      heroTitle: 'Un lecteur de musique pour votre propre bibliothèque.',
+      heroLede: 'Aiiko Music est un lecteur local pour Windows, pensé pour les collections musicales personnelles. Il réunit lecture, albums, artistes, playlists, paroles et métadonnées au même endroit.',
       heroDownload: 'Télécharger pour Windows',
       heroSource: 'Code source sur GitHub',
       heroMeta: 'Windows 10 et 11 · Open source (GPL-3.0)',
+      heroAlt: 'Vue de lecture d’Aiiko Music avec les paroles',
       releaseLabel: 'Dernière version : {tag}',
 
       navHome: 'Accueil',
@@ -249,203 +282,311 @@
       navFormats: 'Formats',
       navInstall: 'Installation',
       navDownload: 'Télécharger',
+      navHomeShort: 'Accueil',
+      navFeaturesShort: 'Fonctions',
+      navScreenshotsShort: 'Captures',
+      navFormatsShort: 'Formats',
+      navInstallShort: 'Installer',
+      navDownloadShort: 'Obtenir',
 
       featuresTitle: 'Fonctionnalités',
       catLibraryTitle: 'Bibliothèque',
       fLibrary1: 'Bibliothèque musicale locale',
       fLibrary2: 'Navigation par albums et artistes',
-      fLibrary3: 'Gestion des listes de lecture',
+      fLibrary3: 'Gestion des playlists',
       fLibrary4: 'Recherche dans toute la bibliothèque',
-
       catPlaybackTitle: 'Lecture',
       fPlayback1: 'Égaliseur 10 bandes',
-      fPlayback2: 'File d\'attente et lecture aléatoire',
+      fPlayback2: 'File d’attente et lecture aléatoire',
       fPlayback3: 'Lecture sans blanc (gapless)',
       fPlayback4: 'Visualiseur audio',
-
       catLyricsTitle: 'Paroles et métadonnées',
-      fLyrics1: 'Paroles synchronisées (.lrc et recherche en ligne)',
-      fLyrics2: 'Éditeur de paroles intégré',
-      fLyrics3: 'Éditeur de balises et métadonnées',
-      fLyrics4: 'Prise en charge des pochettes d\'album',
-
+      fLyrics1: 'Paroles, y compris les fichiers .lrc et la recherche en ligne',
+      fLyrics2: 'Éditeur de paroles',
+      fLyrics3: 'Éditeur de métadonnées',
+      fLyrics4: 'Pochettes d’album',
       catInterfaceTitle: 'Interface',
       fInterface1: 'Mini-lecteur flottant',
-      fInterface2: 'Mode plein écran',
-      fInterface3: 'Personnalisation du thème et de la couleur',
+      fInterface2: 'Vue plein écran',
+      fInterface3: 'Personnalisation de l’apparence et de l’accent',
       fInterface4: 'Raccourcis clavier',
-
       catIntegrationsTitle: 'Intégrations',
       fInteg1: 'Discord Rich Presence',
       fInteg2: 'Scrobbling Last.fm',
 
-      shotsTitle: 'Captures d\'écran',
+      shotsTitle: 'Captures d’écran',
+      shotAltPrefix: 'Capture d’Aiiko Music : ',
       tabHome: 'Accueil',
       tabLibrary: 'Bibliothèque',
       tabArtists: 'Artistes',
-      tabArtistDetail: 'Détail d\'artiste',
+      tabArtistDetail: 'Détail d’artiste',
       tabSearch: 'Recherche',
       tabPlaylists: 'Playlists',
       tabLyricsEditor: 'Éditeur de paroles',
 
-      formatsTitle: 'Formats compatibles',
-      formatsSub: 'Aiiko Music prend en charge les formats audio les plus courants, notamment :',
-      formatsNote: 'La compatibilité dépend des fonctionnalités du moteur audio.',
+      formatsTitle: 'Formats pris en charge',
+      formatsSub: 'Aiiko Music lit les formats audio les plus courants, notamment :',
+      formatsNote: 'La compatibilité dépend des capacités du moteur de lecture.',
 
       installTitle: 'Installation',
-      installSub: 'Pour Windows 10 et 11. Téléchargez la dernière version pour commencer.',
+      installSub: 'Pour Windows 10 et 11. Le plus simple est de télécharger la dernière version publiée.',
       dlPrimaryTitle: 'Télécharger la dernière version',
-      dlPrimaryDesc: '{tag} · Windows 10/11 (64 bits) · ZIP portable{size}',
       dlSecondaryTitle: 'Toutes les versions',
-      dlSecondaryDesc: 'Releases et notes sur GitHub',
+      dlSecondaryDesc: 'Versions précédentes et notes de version',
+      step1: 'Téléchargez le fichier ZIP avec le bouton ci-dessus.',
+      step2: 'Extrayez-le dans le dossier de votre choix.',
+      step3: 'Ouvrez <code>Aiiko Music.exe</code> et suivez les indications du premier démarrage.',
+      sourceNote: 'Pour l’exécuter depuis le code source, les instructions se trouvent dans le',
+      sourceNoteAfter: '.',
 
-      step1: 'Téléchargez l\'archive ZIP à l\'aide du bouton ci-dessus.',
-      step2: 'Extrayez les fichiers dans le dossier de votre choix.',
-      step3: 'Lancez <code>Aiiko Music.exe</code> et suivez les instructions au premier démarrage.',
-      sourceNote: 'Pour compiler ou exécuter depuis le code source, consultez le',
-
-      footerCredit: 'Aiiko Music · Développé par Aiiko Hirayama · © 2026 · Licence GPL-3.0',
-      footerLicense: 'Licence',
-      shotAltPrefix: 'Capture Aiiko Music : '
+      footerCredit: 'Aiiko Music · Développé par Aiiko Hirayama · © 2026 · GPL-3.0',
+      footerLicense: 'Licence'
     }
   };
 
-  const SUPPORTED_LANGS = ['en', 'es', 'ja', 'fr'];
+  const LANGS = ['en', 'es', 'ja', 'fr'];
   const DEFAULT_LANG = 'en';
+  const LANG_KEY = 'aiiko_lang';
+
+  const REPO_API = 'https://api.github.com/repos/HirayamaAiiko/Aiiko-Music/releases/latest';
+  const RELEASE_KEY = 'aiiko_release_v1';
+  const RELEASE_TTL = 30 * 60 * 1000; // 30 min: evita agotar el límite de la API
+
+  const BASE_RATIO = 1366 / 742;
 
   let currentLang = DEFAULT_LANG;
-  let latestTag = '';
-  let latestSize = '';
-  let directZipUrl = '';
+  const release = { tag: '', size: '', url: '' };
 
-  /* ---------- Detección de idioma del sistema / guardado ---------- */
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  function detectInitialLanguage() {
-    try {
-      const saved = localStorage.getItem('aiiko_lang');
-      if (saved && SUPPORTED_LANGS.includes(saved)) {
-        return saved;
-      }
-    } catch (_) { /* ignore */ }
+  /* ---------- Elementos ---------- */
 
-    const browserLangs = navigator.languages || [navigator.language || ''];
-    for (const raw of browserLangs) {
-      if (!raw) continue;
-      const code = raw.toLowerCase().slice(0, 2);
-      if (code === 'es') return 'es';
-      if (code === 'ja') return 'ja';
-      if (code === 'fr') return 'fr';
-      if (code === 'en') return 'en';
-    }
+  const tabs = $$('.tab');
+  const stagePanel = $('#stagePanel');
+  const stageZoom = $('#stageZoom');
+  const stageImage = $('#stageImage');
 
-    return DEFAULT_LANG;
+  const dockLinks = $$('.dock-link');
+  const indicator = $('.dock-indicator');
+  const sections = dockLinks
+    .map((link) => document.getElementById(link.dataset.target))
+    .filter(Boolean);
+
+  const langFloat = $('#langFloat');
+  const langToggle = $('#langToggle');
+  const langCode = $('#langCode');
+  const langOptions = $$('.lang-option');
+
+  const lightbox = $('#lightbox');
+  const lightboxImg = $('#lightboxImg');
+
+  const releaseEl = $('[data-release]');
+  const dlBadge = $('#dlBadge');
+  const downloadLinks = [$('#heroDownloadBtn'), $('#directDownloadBtn')].filter(Boolean);
+
+  /* ---------- Utilidades ---------- */
+
+  function t(key) {
+    const dict = I18N[currentLang] || I18N[DEFAULT_LANG];
+    return dict[key] ?? I18N[DEFAULT_LANG][key] ?? '';
   }
 
-  function formatTemplate(text, data) {
+  function format(text, data) {
     return text.replace(/\{(\w+)\}/g, (_, key) => data[key] ?? '');
   }
 
-  function setLanguage(lang) {
-    if (!SUPPORTED_LANGS.includes(lang)) lang = DEFAULT_LANG;
+  function storageGet(store, key) {
+    try { return store.getItem(key); } catch (_) { return null; }
+  }
+
+  function storageSet(store, key, value) {
+    try { store.setItem(key, value); } catch (_) { /* modo privado / bloqueado */ }
+  }
+
+  /* ---------- Idioma ---------- */
+
+  // Prioridad: elección guardada del usuario > idioma del sistema > inglés
+  function detectInitialLanguage() {
+    const saved = storageGet(localStorage, LANG_KEY);
+    if (saved && LANGS.includes(saved)) return saved;
+
+    const prefs = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || ''];
+
+    for (const raw of prefs) {
+      const code = String(raw).toLowerCase().slice(0, 2);
+      if (LANGS.includes(code)) return code;
+    }
+    return DEFAULT_LANG;
+  }
+
+  function setLanguage(lang, persist = false) {
+    if (!LANGS.includes(lang)) lang = DEFAULT_LANG;
     currentLang = lang;
     document.documentElement.lang = lang;
+    document.title = t('pageTitle');
 
-    const dict = I18N[lang] || I18N[DEFAULT_LANG];
+    $$('[data-i18n]').forEach((el) => {
+      const value = t(el.dataset.i18n);
+      if (!value) return;
+      if (value.includes('<')) el.innerHTML = value;
+      else el.textContent = value;
+    });
 
-    // Título de la página
-    document.title = dict.pageTitle;
+    $$('[data-i18n-label]').forEach((el) => {
+      el.setAttribute('aria-label', t(el.dataset.i18nLabel));
+    });
 
-    // Actualizar todos los elementos con data-i18n
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.dataset.i18n;
-      let text = dict[key];
-      if (text === undefined) return;
+    $$('[data-i18n-alt]').forEach((el) => {
+      el.alt = t(el.dataset.i18nAlt);
+    });
 
-      if (key === 'dlPrimaryDesc') {
-        const tagFormatted = latestTag || 'v1.0.3';
-        const sizeFormatted = latestSize ? ` (${latestSize})` : '';
-        text = formatTemplate(text, { tag: tagFormatted, size: sizeFormatted });
+    langOptions.forEach((opt) => {
+      opt.setAttribute('aria-checked', String(opt.dataset.lang === lang));
+    });
+    if (langCode) langCode.textContent = lang.toUpperCase();
+
+    updateStageAlt();
+    renderRelease();
+
+    // Solo se guarda cuando el usuario elige; así la detección del sistema sigue funcionando
+    if (persist) storageSet(localStorage, LANG_KEY, lang);
+
+    requestAnimationFrame(placeIndicator);
+  }
+
+  /* ---------- Menú de idioma flotante ---------- */
+
+  function isLangMenuOpen() {
+    return langFloat.classList.contains('is-open');
+  }
+
+  function openLangMenu(focusItem) {
+    langFloat.classList.add('is-open');
+    langToggle.setAttribute('aria-expanded', 'true');
+    if (focusItem) {
+      const current = langOptions.find((o) => o.getAttribute('aria-checked') === 'true') || langOptions[0];
+      requestAnimationFrame(() => current.focus());
+    }
+  }
+
+  function closeLangMenu(returnFocus) {
+    langFloat.classList.remove('is-open');
+    langToggle.setAttribute('aria-expanded', 'false');
+    if (returnFocus) langToggle.focus();
+  }
+
+  function initLangMenu() {
+    if (!langFloat || !langToggle) return;
+
+    langToggle.addEventListener('click', () => {
+      if (isLangMenuOpen()) closeLangMenu(false);
+      else openLangMenu(false);
+    });
+
+    langToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        openLangMenu(true);
       }
-
-      el.innerHTML = text;
     });
 
-    // Actualizar badges de versión
-    const releaseEl = document.querySelector('[data-release]');
-    if (releaseEl && latestTag) {
-      releaseEl.textContent = formatTemplate(dict.releaseLabel, { tag: latestTag });
-    }
+    langOptions.forEach((opt, i) => {
+      opt.addEventListener('click', () => {
+        setLanguage(opt.dataset.lang, true);
+        closeLangMenu(true);
+      });
 
-    // Actualizar botones de idioma en ambas barras
-    document.querySelectorAll('[data-lang]').forEach((btn) => {
-      const active = btn.dataset.lang === lang;
-      btn.setAttribute('aria-pressed', String(active));
+      opt.addEventListener('keydown', (e) => {
+        const last = langOptions.length - 1;
+        let next = null;
+        if (e.key === 'ArrowDown') next = i === last ? 0 : i + 1;
+        if (e.key === 'ArrowUp') next = i === 0 ? last : i - 1;
+        if (e.key === 'Home') next = 0;
+        if (e.key === 'End') next = last;
+        if (next !== null) {
+          e.preventDefault();
+          langOptions[next].focus();
+        }
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeLangMenu(true);
+        }
+        if (e.key === 'Tab') closeLangMenu(false);
+      });
     });
 
-    const dockLangCurrent = document.getElementById('dockLangCurrent');
-    if (dockLangCurrent) {
-      dockLangCurrent.textContent = lang.toUpperCase();
-    }
+    document.addEventListener('click', (e) => {
+      if (isLangMenuOpen() && !langFloat.contains(e.target)) closeLangMenu(false);
+    });
 
-    // Guardar preferencia
-    try {
-      localStorage.setItem('aiiko_lang', lang);
-    } catch (_) { /* ignore */ }
-
-    // Reubicar indicador del dock si cambió ancho del texto
-    if (typeof placeIndicator === 'function') {
-      setTimeout(placeIndicator, 50);
-    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isLangMenuOpen()) closeLangMenu(true);
+    });
   }
 
   /* ---------- Aparición al hacer scroll ---------- */
 
-  const revealItems = document.querySelectorAll('[data-reveal]');
+  function initReveal() {
+    const items = $$('[data-reveal]');
 
-  if ('IntersectionObserver' in window && !reduceMotion) {
+    if (!('IntersectionObserver' in window) || reduceMotion) {
+      items.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
-    revealItems.forEach((el) => io.observe(el));
-  } else {
-    revealItems.forEach((el) => el.classList.add('is-visible'));
+    items.forEach((el) => io.observe(el));
   }
 
   /* ---------- Pestañas de capturas ---------- */
 
-  const tabs = Array.from(document.querySelectorAll('.tab'));
-  const stageImage = document.getElementById('stageImage');
+  function selectedTab() {
+    return tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0];
+  }
 
-  // Precarga de capturas
-  tabs.forEach((tab) => {
-    const img = new Image();
-    img.src = tab.dataset.src;
-  });
+  function updateStageAlt() {
+    const tab = selectedTab();
+    if (tab && stageImage) stageImage.alt = t('shotAltPrefix') + tab.textContent.trim();
+  }
+
+  // Las capturas con otra proporción se estrechan para conservar la misma altura
+  function fitStage(w, h) {
+    if (!stageZoom) return;
+    const ratio = w / h;
+    stageZoom.style.width = ratio < BASE_RATIO ? `${((ratio / BASE_RATIO) * 100).toFixed(2)}%` : '100%';
+  }
 
   function selectTab(tab, focus = false) {
     if (!tab || tab.getAttribute('aria-selected') === 'true') return;
 
-    tabs.forEach((t) => {
-      const selected = t === tab;
-      t.setAttribute('aria-selected', String(selected));
-      t.tabIndex = selected ? 0 : -1;
+    tabs.forEach((t2) => {
+      const selected = t2 === tab;
+      t2.setAttribute('aria-selected', String(selected));
+      t2.tabIndex = selected ? 0 : -1;
     });
 
     if (focus) tab.focus();
     tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' });
+    stagePanel?.setAttribute('aria-labelledby', tab.id);
 
     const swap = () => {
-      const dict = I18N[currentLang] || I18N[DEFAULT_LANG];
+      const w = Number(tab.dataset.w);
+      const h = Number(tab.dataset.h);
       stageImage.src = tab.dataset.src;
-      stageImage.width = Number(tab.dataset.w);
-      stageImage.height = Number(tab.dataset.h);
-      stageImage.alt = `${dict.shotAltPrefix}${tab.textContent.trim()}`;
+      stageImage.width = w;
+      stageImage.height = h;
+      fitStage(w, h);
+      updateStageAlt();
       stageImage.classList.remove('is-loading');
     };
 
@@ -457,34 +598,71 @@
     setTimeout(swap, 180);
   }
 
-  tabs.forEach((tab, i) => {
-    tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
-    tab.addEventListener('click', () => selectTab(tab));
-    tab.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        selectTab(tabs[(i + 1) % tabs.length], true);
-      }
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        selectTab(tabs[(i - 1 + tabs.length) % tabs.length], true);
-      }
+  function initTabs() {
+    if (!tabs.length || !stageImage) return;
+
+    // Precarga para que el cambio entre capturas sea inmediato
+    tabs.forEach((tab) => { const img = new Image(); img.src = tab.dataset.src; });
+
+    tabs.forEach((tab, i) => {
+      tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        if (e.key === 'Home') next = 0;
+        if (e.key === 'End') next = tabs.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          selectTab(tabs[next], true);
+        }
+      });
     });
-  });
+  }
+
+  /* ---------- Visor ampliado ---------- */
+
+  function initLightbox() {
+    const zooms = $$('.zoom');
+    const supported = lightbox && typeof lightbox.showModal === 'function';
+
+    zooms.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const img = btn.querySelector('img');
+        if (!img) return;
+        const src = img.currentSrc || img.src;
+
+        if (!supported) {
+          window.open(src, '_blank', 'noopener');
+          return;
+        }
+        lightboxImg.src = src;
+        lightboxImg.alt = img.alt;
+        lightbox.showModal();
+        const scroller = lightbox.querySelector('.lightbox-scroll');
+        if (scroller) scroller.scrollLeft = 0;
+      });
+    });
+
+    if (!supported) return;
+
+    // Cualquier clic fuera de la imagen (fondo o botón de cerrar) cierra el visor
+    lightbox.addEventListener('click', (e) => {
+      if (e.target !== lightboxImg) lightbox.close();
+    });
+  }
 
   /* ---------- Dock: sección activa ---------- */
-
-  const dockLinks = Array.from(document.querySelectorAll('.dock-link'));
-  const indicator = document.querySelector('.dock-indicator');
-  const sections = dockLinks
-    .map((link) => document.getElementById(link.dataset.target))
-    .filter(Boolean);
 
   let activeId = null;
 
   function placeIndicator() {
+    if (!indicator) return;
     const link = dockLinks.find((l) => l.dataset.target === activeId);
-    if (!link || link.offsetParent === null) {
+
+    // En móvil el indicador está oculto (el estado activo se marca con color)
+    if (!link || link.offsetParent === null || indicator.offsetParent === null) {
       indicator.classList.remove('is-ready');
       return;
     }
@@ -501,6 +679,7 @@
       if (section.getBoundingClientRect().top <= probe) current = section.id;
     });
 
+    // Al llegar al final de la página se marca la última sección
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
       current = sections[sections.length - 1]?.id;
     }
@@ -515,97 +694,91 @@
     placeIndicator();
   }
 
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      updateActive();
-      ticking = false;
-    });
-  }, { passive: true });
+  function initDock() {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateActive();
+        ticking = false;
+      });
+    }, { passive: true });
 
-  window.addEventListener('resize', placeIndicator);
-
-  /* ---------- Listeners de cambio de idioma ---------- */
-
-  document.querySelectorAll('[data-lang]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const targetLang = btn.dataset.lang;
-      if (targetLang && targetLang !== currentLang) {
-        setLanguage(targetLang);
-      }
-    });
-  });
-
-  const dockLangMobile = document.getElementById('dockLangMobile');
-  if (dockLangMobile) {
-    dockLangMobile.addEventListener('click', () => {
-      const nextIdx = (SUPPORTED_LANGS.indexOf(currentLang) + 1) % SUPPORTED_LANGS.length;
-      setLanguage(SUPPORTED_LANGS[nextIdx]);
-    });
+    window.addEventListener('resize', placeIndicator);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeIndicator);
   }
 
-  /* ---------- Inicialización de idioma ---------- */
+  /* ---------- Última versión publicada ---------- */
 
-  const initialLang = detectInitialLanguage();
-  setLanguage(initialLang);
-  updateActive();
+  function renderRelease() {
+    if (releaseEl && release.tag) {
+      releaseEl.textContent = format(t('releaseLabel'), { tag: release.tag });
+      releaseEl.hidden = false;
+    }
 
-  /* ---------- Datos de GitHub Releases ---------- */
+    if (dlBadge) {
+      dlBadge.textContent = [
+        release.tag,
+        'Windows 10/11',
+        release.size ? `ZIP (${release.size})` : 'ZIP'
+      ].filter(Boolean).join(' · ');
+    }
+  }
 
-  const releaseEl = document.querySelector('[data-release]');
-  const heroDownloadBtn = document.getElementById('heroDownloadBtn');
-  const directDownloadBtn = document.getElementById('directDownloadBtn');
+  function applyRelease(info) {
+    release.tag = info.tag || '';
+    release.size = info.size || '';
+    release.url = info.url || '';
+    if (release.url) downloadLinks.forEach((a) => { a.href = release.url; });
+    renderRelease();
+  }
 
-  if ('fetch' in window) {
-    fetch('https://api.github.com/repos/HirayamaAiiko/Aiiko-Music/releases/latest', {
-      headers: { Accept: 'application/vnd.github+json' }
-    })
+  function loadRelease() {
+    const cached = storageGet(sessionStorage, RELEASE_KEY);
+    if (cached) {
+      try {
+        const info = JSON.parse(cached);
+        if (info && Date.now() - info.t < RELEASE_TTL) {
+          applyRelease(info);
+          return;
+        }
+      } catch (_) { /* caché corrupta: se vuelve a pedir */ }
+    }
+
+    if (!('fetch' in window)) return;
+
+    fetch(REPO_API, { headers: { Accept: 'application/vnd.github+json' } })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!data || !data.tag_name) return;
 
-        latestTag = data.tag_name;
-
-        // Buscar archivo .zip en los assets
-        const zipAsset = Array.isArray(data.assets)
+        const zip = Array.isArray(data.assets)
           ? data.assets.find((a) => a.name && a.name.toLowerCase().endsWith('.zip'))
           : null;
 
-        if (zipAsset) {
-          directZipUrl = zipAsset.browser_download_url;
-          if (zipAsset.size) {
-            const mb = (zipAsset.size / (1024 * 1024)).toFixed(0);
-            latestSize = `~${mb} MB`;
-          }
+        const info = {
+          tag: data.tag_name,
+          url: zip ? zip.browser_download_url : '',
+          size: zip && zip.size ? `~${Math.round(zip.size / (1024 * 1024))} MB` : '',
+          t: Date.now()
+        };
 
-          if (directDownloadBtn && directZipUrl) {
-            directDownloadBtn.href = directZipUrl;
-          }
-          if (heroDownloadBtn && directZipUrl) {
-            heroDownloadBtn.href = directZipUrl;
-          }
-        }
-
-        // Refrescar strings de versión
-        const dict = I18N[currentLang] || I18N[DEFAULT_LANG];
-        if (releaseEl) {
-          releaseEl.textContent = formatTemplate(dict.releaseLabel, { tag: latestTag });
-          releaseEl.hidden = false;
-        }
-
-        const dlBadge = document.getElementById('dlBadge');
-        if (dlBadge) {
-          const sizeFormatted = latestSize ? ` (${latestSize})` : '';
-          dlBadge.innerHTML = formatTemplate(dict.dlPrimaryDesc, {
-            tag: latestTag,
-            size: sizeFormatted
-          });
-        }
+        applyRelease(info);
+        storageSet(sessionStorage, RELEASE_KEY, JSON.stringify(info));
       })
-      .catch(() => {
-        // Fallback silencioso sin conexión
-      });
+      .catch(() => { /* sin conexión o límite de la API: se mantiene el enlace a /releases/latest */ });
   }
+
+  /* ---------- Inicio ---------- */
+
+  initReveal();
+  initTabs();
+  initLightbox();
+  initLangMenu();
+  initDock();
+
+  setLanguage(detectInitialLanguage(), false);
+  updateActive();
+  loadRelease();
 })();
