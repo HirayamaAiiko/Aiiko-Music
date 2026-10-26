@@ -6,6 +6,32 @@
 (() => {
   'use strict';
 
+  // Control estricto de versión, limpieza de caché obsoleta y restauración de scroll
+  const SITE_VERSION = '1.17.9';
+  try {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    const storedVer = localStorage.getItem('aiiko_site_version');
+    if (storedVer && storedVer !== SITE_VERSION) {
+      sessionStorage.clear();
+      if ('caches' in window) {
+        caches.keys().then((names) => {
+          names.forEach((name) => caches.delete(name));
+        });
+      }
+    }
+    localStorage.setItem('aiiko_site_version', SITE_VERSION);
+  } catch (_) {}
+
+  // En móviles y desktop, al abrir el sitio garantizar que siempre inicie en el encabezado (#inicio)
+  if (!window.location.hash || window.location.hash === '#instalacion' || window.location.hash === '#inicio') {
+    if (window.location.hash === '#instalacion') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Textos ---------- */
@@ -797,8 +823,8 @@
 
     if (!overlay || !actor || !logo || !text || !destBrand || !heroStage) return;
 
-    // Si hay hash específico, scroll previo o movimiento reducido, completar de inmediato
-    if (reduceMotion || window.scrollY > 40 || (window.location.hash && window.location.hash !== '#inicio')) {
+    // Si hay hash específico (distinto a #inicio o #instalacion), o movimiento reducido, completar de inmediato
+    if (reduceMotion || (window.location.hash && window.location.hash !== '#inicio' && window.location.hash !== '#instalacion')) {
       overlay.remove();
       actor.remove();
       destBrand.classList.add('is-docked');
@@ -950,19 +976,29 @@
     const closeBtn = $('#closeFeaturesModalBtn');
     if (!modal) return;
 
+    let savedScrollY = 0;
+
     function openModal() {
+      savedScrollY = window.scrollY;
       if (typeof modal.showModal === 'function') {
         modal.showModal();
       } else {
         modal.setAttribute('open', '');
       }
-      document.body.style.overflow = 'hidden';
+      // Solo en escritorio bloqueamos el scroll del body; en móviles evitamos overflow:hidden
+      // para que Safari y Chrome no reinicien window.scrollY a 0 al abrir el modal.
+      if (window.innerWidth > 768) {
+        document.body.style.overflow = 'hidden';
+      }
     }
 
     function closeModal() {
       if (typeof modal.close === 'function') modal.close();
       else modal.removeAttribute('open');
       document.body.style.overflow = '';
+      if (savedScrollY > 0) {
+        window.scrollTo({ top: savedScrollY, left: 0, behavior: 'instant' });
+      }
     }
 
     if (openBtn) openBtn.addEventListener('click', openModal);
@@ -970,10 +1006,16 @@
 
     modal.addEventListener('close', () => {
       document.body.style.overflow = '';
+      if (savedScrollY > 0) {
+        window.scrollTo({ top: savedScrollY, left: 0, behavior: 'instant' });
+      }
     });
 
     modal.addEventListener('cancel', () => {
       document.body.style.overflow = '';
+      if (savedScrollY > 0) {
+        window.scrollTo({ top: savedScrollY, left: 0, behavior: 'instant' });
+      }
     });
 
     modal.addEventListener('click', (e) => {
@@ -1133,12 +1175,10 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
           playExperience();
-        } else if (entry.intersectionRatio < 0.1) {
-          resetExperience();
         }
       });
     }, {
-      threshold: [0, 0.25, 0.5]
+      threshold: [0.25]
     });
 
     observer.observe(section);
@@ -1419,10 +1459,10 @@
       const diffX = touchStartX - touchLastX;
       const diffY = touchStartY - touchLastY;
 
-      // Si el usuario está interactuando dentro de las tarjetas (pasos 1 a 7),
-      // prevenimos que el scroll de página se dispare bruscamente
+      // En móvil, la navegación de características es ÚNICAMENTE horizontal.
+      // Prevenimos el scroll de página SOLO si el usuario está realizando un swipe horizontal claro.
       if (currentStep >= 1 && currentStep <= 7) {
-        if (Math.abs(diffX) > 12 || Math.abs(diffY) > 12) {
+        if (Math.abs(diffX) > 10 && Math.abs(diffX) > Math.abs(diffY)) {
           if (e.cancelable) e.preventDefault();
         }
       }
@@ -1436,8 +1476,9 @@
 
       if (isTransitioning) return;
 
-      // 1. Gesto Horizontal (Swipe Izquierda / Derecha)
-      if (Math.abs(diffX) > 35 && Math.abs(diffX) >= Math.abs(diffY)) {
+      // Navegación móvil ESTRICTAMENTE horizontal (Swipe Izquierda / Derecha).
+      // El gesto vertical no altera las características y permite el scroll natural de la página.
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 35) {
           // Deslizar hacia la izquierda -> Avanzar siguiente característica
           if (currentStep < totalSteps) {
@@ -1454,37 +1495,6 @@
             isTransitioning = true;
             applyStep(currentStep - 1);
             setTimeout(() => { isTransitioning = false; }, 360);
-          } else if (currentStep === 0) {
-            isTransitioning = true;
-            transitionToHero();
-            setTimeout(() => { isTransitioning = false; }, 600);
-          }
-        }
-        return;
-      }
-
-      // 2. Gesto Vertical (Swipe Arriba / Abajo)
-      if (Math.abs(diffY) > 35) {
-        if (diffY > 35) {
-          // Deslizar hacia arriba -> Avanzar siguiente paso
-          if (currentStep < totalSteps) {
-            isTransitioning = true;
-            applyStep(currentStep + 1);
-            setTimeout(() => { isTransitioning = false; }, 360);
-          } else if (currentStep === totalSteps) {
-            isTransitioning = true;
-            transitionLeapTo('manifiesto', () => { isTransitioning = false; });
-          }
-        } else if (diffY < -35) {
-          // Deslizar hacia abajo -> Retroceder
-          if (currentStep > 0) {
-            isTransitioning = true;
-            applyStep(currentStep - 1);
-            setTimeout(() => { isTransitioning = false; }, 360);
-          } else if (currentStep === 0) {
-            isTransitioning = true;
-            transitionToHero();
-            setTimeout(() => { isTransitioning = false; }, 600);
           }
         }
       }
@@ -2290,6 +2300,14 @@
     const expCtaBtn = $('#experienceCtaBtn');
     if (expCtaBtn) {
       expCtaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        transitionLeapTo('instalacion');
+      });
+    }
+
+    const dockCta = $('.dock-cta');
+    if (dockCta) {
+      dockCta.addEventListener('click', (e) => {
         e.preventDefault();
         transitionLeapTo('instalacion');
       });

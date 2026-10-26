@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Prevención de caché obsoleta en clientes y navegadores móviles -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
   <!-- Metadatos primarios -->
   <title>Aiiko Music — Music player for your personal library</title>
   <meta name="title" content="Aiiko Music — Music player for your personal library">
-  <meta name="description" content="Aiiko Music is a local music player for Windows, designed for personal music collections. Free and open source.">
+  <meta name="description" content="Aiiko Music is a local music player for Windows, designed for personal music collections with uncompromised audio fidelity. Free and open source.">
   <meta name="theme-color" content="#23232D">
   <meta name="color-scheme" content="dark">
 
@@ -14,31 +19,67 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Aiiko Music">
   <meta property="og:title" content="Aiiko Music — Music player for your personal library">
-  <meta property="og:description" content="A local music player for Windows, designed for personal music collections. Free and open source.">
-  <meta property="og:image" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
-  <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
+  <meta property="og:description" content="A local music player for Windows, built with care for everyday listening and uncompromised audio fidelity. Free and open source.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/og_preview.png">
+  <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/og_preview.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1366">
-  <meta property="og:image:height" content="742">
-  <meta property="og:image:alt" content="Aiiko Music — Windows Music Player">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Aiiko Music — Modern Windows Music Player">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Aiiko Music — Music player for your personal library">
-  <meta name="twitter:description" content="A local music player for Windows, designed for personal music collections. Free and open source.">
-  <meta name="twitter:image" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
-  <meta name="twitter:image:alt" content="Aiiko Music — Windows Music Player">
+  <meta name="twitter:description" content="A local music player for Windows, built with care for everyday listening and uncompromised audio fidelity. Free and open source.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/og_preview.png">
+  <meta name="twitter:image:alt" content="Aiiko Music — Modern Windows Music Player">
 
   <!-- Tipografía Geist & Geist Mono (ai-design-skills B1) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Enlaces de icono e imagen de previsualización -->
-  <link rel="image_src" href="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
+  <!-- Favicons multiplataforma: Web de escritorio, Safari iOS, Android Chrome y PWA -->
+  <link rel="image_src" href="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/og_preview.png">
   <link rel="icon" type="image/svg+xml" href="images/logo_full.svg">
-  <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Aiiko Music">
+  <meta name="application-name" content="Aiiko Music">
+  <meta name="msapplication-TileColor" content="#1a1e28">
+
+  <link rel="stylesheet" href="styles.css?v=1.17.9">
+  <script>
+    document.documentElement.classList.add('js');
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    // Mantenimiento de caché activa y prevención de salto a #instalacion en móviles
+    (function() {
+      const CURRENT_VER = '1.17.9';
+      try {
+        const oldVer = localStorage.getItem('aiiko_site_version');
+        if (oldVer && oldVer !== CURRENT_VER) {
+          sessionStorage.clear();
+          if ('caches' in window) {
+            caches.keys().then(function(keys) {
+              keys.forEach(function(k) { caches.delete(k); });
+            });
+          }
+        }
+        localStorage.setItem('aiiko_site_version', CURRENT_VER);
+      } catch(e) {}
+      if (!window.location.hash || window.location.hash === '#instalacion' || window.location.hash === '#inicio') {
+        if (window.location.hash === '#instalacion') {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        window.scrollTo(0, 0);
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -1014,6 +1055,6 @@
     </div>
   </dialog>
 
-  <script src="main.js"></script>
+  <script src="main.js?v=1.17.9" defer></script>
 </body>
 </html>

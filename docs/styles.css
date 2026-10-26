@@ -3113,13 +3113,14 @@ div.theme-stack-wrap.focus-media-img {
 .experience-logo-img {
   width: 96px;
   height: 96px;
-  border-radius: 22px;
+  border-radius: 0; /* El logo SVG ya viene con sus esquinas redondeadas (rx=476) nativas */
   display: block;
   opacity: 0;
   will-change: transform, opacity;
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  box-shadow: none;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.45));
 }
 
 .experience-logo-img.is-emerged {
@@ -3234,6 +3235,7 @@ div.theme-stack-wrap.focus-media-img {
   .experience-logo-img {
     width: 72px;
     height: 72px;
+    border-radius: 0;
   }
   .experience-text-wrap {
     font-size: clamp(2rem, 8.5vw, 2.8rem);
