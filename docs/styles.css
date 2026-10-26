@@ -461,6 +461,31 @@ code {
   transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+@media (max-width: 768px) {
+  .intro-brand-actor {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+  .intro-logo-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+  }
+  .intro-logo-img.is-aligned {
+    transform: none !important;
+  }
+  .intro-text-wrap {
+    font-size: 26px;
+    transform: translateY(10px);
+    gap: 6px;
+  }
+  .intro-text-wrap.is-visible {
+    transform: translateY(0);
+  }
+}
+
 /* ---------- Hero Stage (Diseño Arquitectónico Inspirado en Raven) ---------- */
 
 .hero-stage {

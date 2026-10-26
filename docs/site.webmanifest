@@ -6,16 +6,18 @@
     {
       "src": "images/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "images/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "theme_color": "#23232D",
-  "background_color": "#121217",
+  "theme_color": "#0c0b0e",
+  "background_color": "#0c0b0e",
   "display": "standalone",
   "orientation": "portrait"
 }

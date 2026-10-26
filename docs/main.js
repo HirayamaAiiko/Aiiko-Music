@@ -7,7 +7,7 @@
   'use strict';
 
   // Control estricto de versión, limpieza de caché obsoleta y restauración de scroll
-  const SITE_VERSION = '1.17.10';
+  const SITE_VERSION = '1.17.11';
   try {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
@@ -837,19 +837,20 @@
     let textTimer = null;
     let flightTimer = null;
 
-    // Medición exacta inicial sin reflow
-    // El actor completo está en (50vw, 50vh) con transform: translate(-50%, -50%).
-    // Para centrar el logo matemáticamente en la pantalla en la fase 1:
+    const isMobileScreen = window.innerWidth <= 768;
+
+    // En pantallas móviles, el actor está en columna centrado matemáticamente (centerX = 50vw).
+    // En escritorio, el actor está en fila horizontal y se calcula el desplazamiento inicial del logo.
     const actorWidth = actor.offsetWidth;
     const logoWidth = logo.offsetWidth;
-    const initialLogoShiftX = (actorWidth - logoWidth) / 2;
+    const initialLogoShiftX = isMobileScreen ? 0 : (actorWidth - logoWidth) / 2;
 
-    logo.style.transform = `translateX(${initialLogoShiftX.toFixed(2)}px) scale(0.88)`;
+    logo.style.transform = isMobileScreen ? 'scale(0.88)' : `translateX(${initialLogoShiftX.toFixed(2)}px) scale(0.88)`;
 
     // 1. Fase 1: Emergencia suave y majestuosa del logo en el centro de la pantalla (0.0s - 0.9s)
     requestAnimationFrame(() => {
       logo.classList.add('is-emerged');
-      logo.style.transform = `translateX(${initialLogoShiftX.toFixed(2)}px) scale(1)`;
+      logo.style.transform = isMobileScreen ? 'scale(1)' : `translateX(${initialLogoShiftX.toFixed(2)}px) scale(1)`;
       stageState = 'logo';
     });
 
@@ -879,11 +880,27 @@
       }, 1300);
     }
 
-    // 4. Fase 4: Vuelo cinematográfico a la esquina superior izquierda (3.0s - 4.15s)
+    // 4. Fase 4: Vuelo cinematográfico a la esquina superior izquierda (escritorio) o disolución serena (móvil)
     function flyToCorner() {
       if (transitionFired) return;
       transitionFired = true;
       stageState = 'flying';
+
+      if (isMobileScreen) {
+        // En móviles: disolución suave y elegante hacia el hero sin saltos
+        actor.style.transition = 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1)';
+        overlay.style.transition = 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1)';
+        actor.style.opacity = '0';
+        overlay.style.opacity = '0';
+        destBrand.classList.add('is-docked');
+        heroStage.classList.add('is-revealed');
+        setTimeout(() => {
+          actor.remove();
+          overlay.remove();
+          stageState = 'done';
+        }, 650);
+        return;
+      }
 
       // Asegurar que el lockup esté alineado inmediatamente antes de iniciar el vuelo
       logo.style.transition = 'none';
@@ -939,7 +956,10 @@
 
     window.addEventListener('wheel', onUserInteraction, { passive: true });
     window.addEventListener('touchmove', onUserInteraction, { passive: true });
-    window.addEventListener('scroll', onUserInteraction, { passive: true });
+    window.addEventListener('scroll', () => {
+      // Filtrar el scroll sintético inicial en scrollY = 0
+      if (window.scrollY > 20) onUserInteraction();
+    }, { passive: true });
     window.addEventListener('keydown', (e) => {
       if (['ArrowDown', 'PageDown', ' ', 'Enter'].includes(e.key)) onUserInteraction();
     });
