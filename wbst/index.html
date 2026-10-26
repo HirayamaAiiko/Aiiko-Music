@@ -1,1 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Metadatos primarios -->
+  <title>Aiiko Music — Music player for your personal library</title>
+  <meta name="title" content="Aiiko Music — Music player for your personal library">
+  <meta name="description" content="Aiiko Music is a local music player for Windows, designed for personal music collections. Free and open source.">
+  <meta name="theme-color" content="#23232D">
+  <meta name="color-scheme" content="dark">
 
+  <!-- Open Graph / WhatsApp / Telegram / Discord / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Aiiko Music">
+  <meta property="og:title" content="Aiiko Music — Music player for your personal library">
+  <meta property="og:description" content="A local music player for Windows, designed for personal music collections. Free and open source.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
+  <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1366">
+  <meta property="og:image:height" content="742">
+  <meta property="og:image:alt" content="Aiiko Music — Windows Music Player">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aiiko Music — Music player for your personal library">
+  <meta name="twitter:description" content="A local music player for Windows, designed for personal music collections. Free and open source.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
+  <meta name="twitter:image:alt" content="Aiiko Music — Windows Music Player">
+
+  <!-- Tipografía Geist & Geist Mono (ai-design-skills B1) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Enlaces de icono e imagen de previsualización -->
+  <link rel="image_src" href="https://raw.githubusercontent.com/HirayamaAiiko/Aiiko-Music/main/images/now_playing.png">
+  <link rel="icon" type="image/svg+xml" href="images/logo_full.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- Fondo ambiental dinámico global: degradado sutil disperso de derecha a izquierda que se desvanece a mitad de pantalla -->
+  <div class="global-ambient-backdrop" aria-hidden="true">
+    <div class="lateral-glow-right"></div>
+    <div class="lateral-drift-container">
+      <div class="lateral-drift lateral-drift-right-primary"></div>
+      <div class="lateral-drift lateral-drift-right-secondary"></div>
+    </div>
+  </div>
+
+  <!-- Enlace accesible de salto al contenido principal (ai-design-skills B10) -->
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- Introducción Cinemática Minimalista (Logo centro -> Aiiko Music -> Destino en esquina) -->
+  <div class="brand-intro-overlay" id="introOverlay" aria-hidden="true">
+    <div class="intro-brand-actor" id="introActor">
+      <!-- 1. Solo el logo al principio -->
+      <img src="images/logo_full.svg" alt="" width="56" height="56" class="intro-logo-img" id="introLogo">
+      <!-- 2. Luego aparece 'Aiiko Music' animándose -->
+      <span class="intro-text-wrap" id="introText">
+        <span>Aiiko</span>
+        <span class="brand-sub">Music</span>
+      </span>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- Inicio / Hero Stage (Diseño Arquitectónico Inspirado en Raven) -->
+    <section class="hero-stage" id="inicio">
+      <!-- Barra superior de navegación estilo Raven -->
+      <header class="hero-nav">
+        <a href="#inicio" class="hero-brand" id="heroBrand" aria-label="Aiiko Music">
+          <img src="images/logo_full.svg" alt="" width="32" height="32" class="hero-brand-logo">
+          <span class="hero-brand-name">Aiiko <span class="brand-sub">Music</span></span>
+        </a>
+
+        <!-- Categorías en el centro -->
+        <nav class="hero-nav-center" aria-label="Navegación principal">
+          <ul class="hero-nav-menu">
+            <li><a href="#funciones" class="hero-menu-link" data-target="funciones" data-i18n="navFeatures">Features</a></li>
+            <li><a href="#galeria" class="hero-menu-link" data-target="galeria" data-i18n="navScreenshots">Gallery</a></li>
+            <li><a href="#formatos" class="hero-menu-link" data-target="formatos" data-i18n="navFormats">Formats</a></li>
+            <li><a href="#instalacion" class="hero-menu-link" data-target="instalacion" data-i18n="navInstall">Installation</a></li>
+          </ul>
+        </nav>
+
+        <!-- Acciones en el extremo derecho: GitHub ↗ -->
+        <div class="hero-nav-actions">
+          <a href="https://github.com/HirayamaAiiko/Aiiko-Music" target="_blank" rel="noopener" class="hero-github-link">
+            <svg class="gh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+            <span>GitHub</span>
+            <span class="ext-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Cuerpo principal del Hero: Titular a la izquierda, Mockup de la app a la derecha -->
+      <div class="hero-body wrap">
+        <div class="hero-content">
+          <h1 class="hero-title" data-i18n="heroTitle">A music player for your personal library.</h1>
+          <p class="hero-lede" data-i18n="heroLede">
+            Aiiko Music is a local music player for Windows, designed for personal music collections.
+            It brings together playback, albums, artists, playlists, lyrics and metadata in one place.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://github.com/HirayamaAiiko/Aiiko-Music/releases/latest" class="btn-primary-cta" id="heroDownloadBtn" target="_blank" rel="noopener">
+              <span data-i18n="heroDownload">Download for Windows</span>
+              <svg class="btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+
+            <a href="#funciones" class="btn-secondary-cta" id="heroSecondaryBtn">
+              <span data-i18n="heroExplore">Explore features</span>
+              <svg class="btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Columna derecha: Escaparate dual combinado (home_UI en perspectiva posterior + now_playing en primer plano) -->
+        <div class="hero-visual">
+          <div class="hero-showcase-stack" id="heroMockupStack">
+            <!-- Capa posterior: Vista Mi Biblioteca y Lista de reproducción (home_UI) -->
+            <div class="hero-window-card hero-window-back" id="heroMockupBack" role="button" tabindex="0" data-i18n-label="zoomLabel" aria-label="Enlarge library screenshot">
+              <img src="images/home_UI.png" alt="Aiiko Music Library and Playback Queue" class="hero-showcase-img" width="1366" height="742" loading="eager" decoding="async">
+              <div class="hero-player-zoom-hint" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                <span data-i18n="zoomLabel">Enlarge</span>
+              </div>
+            </div>
+
+            <!-- Capa frontal: Vista Now Playing y reproducción inmersiva (now_playing) -->
+            <div class="hero-window-card hero-window-front" id="heroMockupCard" role="button" tabindex="0" data-i18n-label="zoomLabel" aria-label="Enlarge screenshot">
+              <img src="images/now_playing.png" alt="Aiiko Music Now Playing" class="hero-showcase-img" width="1366" height="742" fetchpriority="high" decoding="async">
+              <div class="hero-player-zoom-hint" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                <span data-i18n="zoomLabel">Enlarge</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicador interactivo sutil de scroll hacia la siguiente sección -->
+      <a href="#funciones" class="hero-scroll-cue" aria-label="Scroll to features">
+        <div class="mouse-icon" aria-hidden="true">
+          <div class="wheel-dot"></div>
+        </div>
+        <span class="scroll-cue-text" data-i18n="navFeatures">Features</span>
+      </a>
+    </section>
+
+    <!-- Actor morfológico de la gota: se condensa directamente de la fusión central de las 4 palabras -->
+    <div class="droplet-stage-overlay" id="dropletStage" aria-hidden="true">
+      <div class="droplet-bead-actor" id="dropletBead">
+        <div class="droplet-head"></div>
+        <div class="droplet-tail"></div>
+      </div>
+      <div class="dock-impact-flare" id="dockImpactFlare"></div>
+    </div>
+
+    <!-- Funciones: Scroll Pinned Stage — Solo FEATURES primero, luego exposición 1 a 1 de las 6 características y botón modal -->
+    <section class="features-scroll-track" id="funciones">
+      <div class="features-sticky-viewport">
+        <!-- Paso 0: Pantalla completa en negro absoluto mostrando exclusivamente FEATURES -->
+        <div class="features-screen-intro" id="featuresScreenIntro">
+          <span class="features-intro-tag" data-i18n="navFeatures">FEATURES</span>
+          <h2 class="features-hero-title">FEATURES</h2>
+          <p class="features-intro-sub" data-i18n="featuresLead">A modern desktop music player built for true listening, high fidelity sound, and personal collections.</p>
+          <div class="features-scroll-indicator" aria-hidden="true">
+            <span class="indicator-mouse"><span class="indicator-wheel"></span></span>
+            <span class="indicator-text">Scroll</span>
+          </div>
+          <button type="button" class="features-touch-hint" id="featuresTouchHint" aria-label="Explore features">
+            <span class="touch-hint-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
+                <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/>
+                <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
+                <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+              </svg>
+            </span>
+            <span class="touch-hint-text" data-i18n="touchSwipeHint">Swipe or tap to explore</span>
+            <svg class="touch-hint-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- Paso 1 a 6: Tarjetas de características expuestas 1 a 1 con miniaturas alternantes -->
+        <div class="features-stage-cards" id="featuresStageCards">
+          <!-- 1. Equalizer: Text Left, Media Right -->
+          <article class="features-focus-card" data-step="1">
+            <div class="focus-card-split">
+              <div class="focus-card-text">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab1">Audio &amp; Playback</span>
+                </div>
+                <div class="focus-card-body">
+                  <div class="focus-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+                      <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+                      <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+                      <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+                    </svg>
+                  </div>
+                  <div class="focus-card-content">
+                    <h3 class="focus-title" data-i18n="feat_1_1">10-band equalizer with custom tuning</h3>
+                    <p class="focus-desc" data-i18n="feat_desc_1">Adjust the sound to your preference, and use the crossfeed functions.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="focus-card-media">
+                <div class="focus-media-frame focus-media-img">
+                  <img src="images/01.png" alt="10-band Equalizer Preview" class="focus-media-source" loading="lazy" decoding="async">
+                  <div class="surface-light-sheen" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Gapless: Media Left, Text Right (Alternando .is-reversed) -->
+          <article class="features-focus-card is-reversed" data-step="2">
+            <div class="focus-card-split">
+              <div class="focus-card-text">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab1">Audio &amp; Playback</span>
+                </div>
+                <div class="focus-card-body">
+                  <div class="focus-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="6 3 20 12 6 21 6 3"/>
+                    </svg>
+                  </div>
+                  <div class="focus-card-content">
+                    <h3 class="focus-title" data-i18n="feat_1_2">Gapless playback for uninterrupted listening</h3>
+                    <p class="focus-desc" data-i18n="feat_desc_2">Continuous audio stream transitions with zero silence between consecutive tracks.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="focus-card-media">
+                <div class="gapless-player-ui focus-media-img" role="img" aria-label="Gapless Playback Continuous Stream Pipeline">
+                  <div class="surface-light-sheen" aria-hidden="true"></div>
+                  <!-- Tira de pistas consistente en reemplazo de la pastilla: TRACK A a la izquierda, TRACK B a la derecha -->
+                  <div class="gapless-tracks-strip">
+                    <div class="gapless-track-pill track-a">
+                      <span class="track-dot" aria-hidden="true"></span>
+                      <span>TRACK A</span>
+                    </div>
+                    <div class="gapless-track-pill track-b">
+                      <span class="track-dot" aria-hidden="true"></span>
+                      <span>TRACK B</span>
+                    </div>
+                  </div>
+
+                  <!-- Diagrama técnico con onda continua ininterrumpida -->
+                  <div class="gapless-timeline-diagram">
+                    <!-- Eje vertical de amplitud (dB) -->
+                    <div class="gapless-axis-y" aria-hidden="true">
+                      <svg width="12" height="64" viewBox="0 0 12 64" fill="none">
+                        <path d="M6 64V4" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                        <path d="M2 8L6 2L10 8" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+
+                    <!-- Contenedor de línea de tiempo con onda continua única -->
+                    <div class="gapless-blocks-wrapper">
+                      <!-- Fondo dividido sutilmente A / B -->
+                      <div class="gapless-sub-blocks" aria-hidden="true">
+                        <div class="gapless-bg-half track-a-bg"></div>
+                        <div class="gapless-bg-half track-b-bg"></div>
+                      </div>
+
+                      <!-- Línea central continua y marcas de muestreo/timeline -->
+                      <div class="gapless-center-line" aria-hidden="true"></div>
+                      <div class="gapless-ticks" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                      </div>
+
+                      <!-- ONDA CONTINUA ININTERRUMPIDA: Una sola curva SVG continua de 0 a 100% sin pausas ni quiebres -->
+                      <div class="gapless-waveform-stage" aria-hidden="true">
+                        <svg class="gapless-unified-wave" viewBox="0 0 400 48" preserveAspectRatio="none">
+                          <defs>
+                            <linearGradient id="gaplessWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stop-color="#14B8A6"/>
+                              <stop offset="48%" stop-color="#2DD4BF"/>
+                              <stop offset="52%" stop-color="#2DD4BF"/>
+                              <stop offset="100%" stop-color="#38BDF8"/>
+                            </linearGradient>
+                          </defs>
+                          <path d="M 0 24 C 4.2 22.0, 16.7 12.0, 25.0 12.0 C 33.3 12.0, 41.7 20.0, 50.0 24.0 C 58.3 28.0, 66.7 36.0, 75.0 36.0 C 83.3 36.0, 91.7 28.3, 100.0 24.0 C 108.3 19.7, 116.7 10.0, 125.0 10.0 C 133.3 10.0, 141.7 19.3, 150.0 24.0 C 158.3 28.7, 166.7 38.0, 175.0 38.0 C 183.3 38.0, 191.7 28.7, 200.0 24.0 C 208.3 19.3, 216.7 10.0, 225.0 10.0 C 233.3 10.0, 241.7 19.5, 250.0 24.0 C 258.3 28.5, 266.7 37.0, 275.0 37.0 C 283.3 37.0, 291.7 28.0, 300.0 24.0 C 308.3 20.0, 316.7 13.0, 325.0 13.0 C 333.3 13.0, 341.7 20.3, 350.0 24.0 C 358.3 27.7, 366.7 35.0, 375.0 35.0 C 383.3 35.0, 395.8 25.8, 400.0 24.0" fill="none" stroke="url(#gaplessWaveGrad)" stroke-width="2.6" stroke-linecap="round"/>
+                        </svg>
+                      </div>
+
+                      <!-- Unión hermética central (0 ms) -->
+                      <div class="gapless-seam-divider" aria-hidden="true">
+                        <div class="seam-glow-line"></div>
+                        <div class="seam-zero-pill">0 ms</div>
+                      </div>
+
+                      <!-- Cursor de reproducción continuo que atraviesa la unión -->
+                      <div class="gapless-playhead-cursor" aria-hidden="true"></div>
+                    </div>
+
+                    <!-- Eje horizontal de tiempo (flecha hacia la derecha) -->
+                    <div class="gapless-axis-x-arrow" aria-hidden="true">
+                      <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+                        <path d="M2 2L8 6L2 10" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Visualizer: Text Left, Media Right -->
+          <article class="features-focus-card" data-step="3">
+            <div class="focus-card-split">
+              <div class="focus-card-text">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab1">Audio &amp; Playback</span>
+                </div>
+                <div class="focus-card-body">
+                  <div class="focus-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2v20"/><path d="M17 5v14"/><path d="M22 9v6"/><path d="M7 5v14"/><path d="M2 9v6"/>
+                    </svg>
+                  </div>
+                  <div class="focus-card-content">
+                    <h3 class="focus-title" data-i18n="feat_1_4">Audio visualizer</h3>
+                    <p class="focus-desc" data-i18n="feat_desc_3">Hermoso y dinámico visualizador de espectro que se mueve al ritmo de tu música.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="focus-card-media">
+                <div class="focus-media-frame focus-media-img">
+                  <img src="images/03.png" alt="Audio Visualizer Spectrum" class="focus-media-source" loading="lazy" decoding="async">
+                  <div class="surface-light-sheen" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Library management: Media Left, Text Right (Alternando .is-reversed) -->
+          <article class="features-focus-card is-reversed" data-step="4">
+            <div class="focus-card-split">
+              <div class="focus-card-text">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab2">Library &amp; Organization</span>
+                </div>
+                <div class="focus-card-body">
+                  <div class="focus-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/>
+                      <circle cx="12" cy="13" r="2"/><path d="M14 13V9h2"/>
+                    </svg>
+                  </div>
+                  <div class="focus-card-content">
+                    <h3 class="focus-title" data-i18n="feat_2_1">Local music library management</h3>
+                    <p class="focus-desc" data-i18n="feat_desc_4">Navega en tu música en una biblioteca ordenada sin complicaciones.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="focus-card-media">
+                <div class="focus-media-frame focus-media-img focus-media-square">
+                  <img src="images/04.png" alt="Local Library Management" class="focus-media-source" loading="lazy" decoding="async">
+                  <div class="surface-light-sheen" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Lyrics & Synchronization: Text Left, Media Right -->
+          <article class="features-focus-card" data-step="5">
+            <div class="focus-card-split">
+              <div class="focus-card-text">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab3">Lyrics &amp; Metadata</span>
+                </div>
+                <div class="focus-card-body">
+                  <div class="focus-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>
+                    </svg>
+                  </div>
+                  <div class="focus-card-content">
+                    <h3 class="focus-title" data-i18n="feat_3_1">Lyrics support and synchronization tools</h3>
+                    <p class="focus-desc" data-i18n="feat_desc_5">Letras sincronizadas estilo karaoke con soporte .lrc local, traducción a tu idioma y editor avanzado integrado.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="focus-card-media">
+                <div class="focus-media-frame focus-media-img focus-media-square">
+                  <img src="images/05.png" alt="Lyrics &amp; Editor Preview" class="focus-media-source" loading="lazy" decoding="async">
+                  <div class="surface-light-sheen" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Floating Player & Fullscreen: Media Left, Text Right (Alternando .is-reversed) -->
+          <article class="features-focus-card is-reversed" data-step="6">
+            <div class="focus-card-split">
+              <div class="focus-card-text">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab4">Experience &amp; Customization</span>
+                </div>
+                <div class="focus-card-body">
+                  <div class="focus-icon-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="15" x="2" y="5" rx="2"/><rect width="8" height="6" x="12" y="12" rx="1" fill="currentColor" fill-opacity="0.2"/>
+                      <path d="m5 10 3 2-3 2v-4z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div class="focus-card-content">
+                    <h3 class="focus-title" data-i18n="feat_1_6">Mini-reproductor flotante y Fullscreen</h3>
+                    <p class="focus-desc" data-i18n="feat_desc_6">Mini-reproductor flotante siempre visible y vista inmersiva a pantalla completa para tus pantallas.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="focus-card-media">
+                <div class="floating-stack-wrap focus-media-img" role="img" aria-label="Fullscreen player with floating mini player stack">
+                  <div class="stack-back-wrap">
+                    <img src="images/06_FULL.png" alt="Fullscreen Player View" class="stack-img-back" loading="lazy" decoding="async">
+                    <div class="surface-light-sheen" aria-hidden="true"></div>
+                  </div>
+                  <div class="stack-img-front-wrap">
+                    <img src="images/06.png" alt="Floating Mini Player" class="stack-img-front" loading="lazy" decoding="async">
+                    <div class="surface-light-sheen" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. Themes & Accent Personalization: Centered Layout with 3D Stack -->
+          <article class="features-focus-card is-centered-theme" data-step="7">
+            <div class="focus-card-centered-wrap">
+              <div class="focus-card-text text-center">
+                <div class="focus-card-meta">
+                  <span class="focus-card-tag" data-i18n="catTab4">Experience &amp; Customization</span>
+                </div>
+                <div class="focus-card-body-center">
+                  <h3 class="focus-title" data-i18n="feat_theme_title">HAZLO TUYO</h3>
+                  <p class="focus-desc" data-i18n="feat_desc_7">Personaliza el color de acento y tema visual de tu reproductor a tu gusto.</p>
+                </div>
+              </div>
+              <div class="focus-card-media media-center">
+                <div class="theme-stack-wrap focus-media-img" role="img" aria-label="Theme and accent customization preview with floating appearance panel">
+                  <!-- Ventana base del tema con transición diagonal minimalista que se abre desde el centro -->
+                  <div class="theme-window-stage">
+                    <img src="images/themes/06A.png" alt="Aiiko Music Theme" class="theme-img-base" id="themeImgBase" loading="lazy" decoding="async">
+                    <img src="images/themes/06A.png" alt="" class="theme-img-wipe" id="themeImgWipe" loading="lazy" decoding="async">
+                    <div class="surface-light-sheen" aria-hidden="true"></div>
+                  </div>
+                  <!-- Panel de apariencia flotante en primer plano 3D -->
+                  <div class="theme-panel-floating">
+                    <img src="images/themes/PANEL.png" alt="Panel de apariencia" class="theme-panel-img" loading="lazy" decoding="async">
+                    <div class="surface-light-sheen" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Paso Final: Botón Elegante para Ver Más Características en Modal -->
+        <div class="features-outro-stage" id="featuresOutroStage">
+          <span class="outro-eyebrow">AIIKO ARCHITECTURE</span>
+          <h4 class="outro-title">Discover the full scope</h4>
+          <p class="outro-desc">18 purpose-built capabilities across sound, catalog, words, and UI ecosystem.</p>
+          <button type="button" class="btn-features-more" id="openFeaturesModalBtn">
+            <span data-i18n="featuresMoreBtn">View all features</span>
+            <svg class="more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Barra de navegación táctil para móvil: botones Anterior / Siguiente y contador de pasos -->
+        <div class="features-mobile-nav" id="featuresMobileNav" aria-label="Feature navigation">
+          <button type="button" class="feat-nav-btn feat-prev-btn" id="featPrevBtn" aria-label="Previous feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <div class="feat-nav-badge" id="featNavBadge">
+            <span class="feat-nav-step" id="featNavStep">1</span>
+            <span class="feat-nav-sep">/</span>
+            <span class="feat-nav-total">7</span>
+          </div>
+          <button type="button" class="feat-nav-btn feat-next-btn" id="featNextBtn" aria-label="Next feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Rail de progreso vertical sutil a la derecha -->
+        <div class="features-step-rail" id="featuresStepRail" aria-hidden="true">
+          <button type="button" class="rail-dot is-active" data-step="0" aria-label="Intro"></button>
+          <button type="button" class="rail-dot" data-step="1" aria-label="Equalizer"></button>
+          <button type="button" class="rail-dot" data-step="2" aria-label="Gapless"></button>
+          <button type="button" class="rail-dot" data-step="3" aria-label="Visualizer"></button>
+          <button type="button" class="rail-dot" data-step="4" aria-label="Library"></button>
+          <button type="button" class="rail-dot" data-step="5" aria-label="Lyrics"></button>
+          <button type="button" class="rail-dot" data-step="6" aria-label="Mini player"></button>
+          <button type="button" class="rail-dot" data-step="7" aria-label="Themes &amp; Accents"></button>
+          <button type="button" class="rail-dot" data-step="8" aria-label="All features"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ventana modal con el listado completo de características (ai-design-skills B9/B10) -->
+    <dialog class="features-modal" id="featuresModal" aria-labelledby="featuresModalTitle">
+      <div class="features-modal-card">
+        <header class="features-modal-header">
+          <div>
+            <span class="features-modal-eyebrow" data-i18n="navFeatures">FEATURES</span>
+            <h3 class="features-modal-title" id="featuresModalTitle" data-i18n="featuresModalTitle">All Features &amp; Capabilities</h3>
+          </div>
+          <button type="button" class="features-modal-close" id="closeFeaturesModalBtn" aria-label="Close" data-i18n-label="closeLabel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+          </button>
+        </header>
+
+        <div class="features-modal-body">
+          <!-- Capítulo 1 -->
+          <div class="features-modal-chapter">
+            <div class="modal-chap-title">
+              <span class="chap-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+                  <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+                  <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+                </svg>
+              </span>
+              <h4 data-i18n="catTab1">Audio &amp; Playback</h4>
+            </div>
+            <ul class="modal-chap-list">
+              <li><span class="bullet-dot"></span><span data-i18n="feat_1_1">10-band equalizer with custom tuning</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_1_2">Gapless playback for uninterrupted listening</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_1_3">Queue and shuffle playback modes</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_1_4">Audio visualizer</span></li>
+            </ul>
+          </div>
+
+          <!-- Capítulo 2 -->
+          <div class="features-modal-chapter">
+            <div class="modal-chap-title">
+              <span class="chap-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/>
+                  <circle cx="12" cy="13" r="2"/><path d="M14 13V9h2"/>
+                </svg>
+              </span>
+              <h4 data-i18n="catTab2">Library &amp; Organization</h4>
+            </div>
+            <ul class="modal-chap-list">
+              <li><span class="bullet-dot"></span><span data-i18n="feat_2_1">Local music library management</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_2_2">Album and artist browsing</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_2_3">Playlist management</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_2_4">Library-wide search to find tracks instantly</span></li>
+            </ul>
+          </div>
+
+          <!-- Capítulo 3 -->
+          <div class="features-modal-chapter">
+            <div class="modal-chap-title">
+              <span class="chap-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>
+                </svg>
+              </span>
+              <h4 data-i18n="catTab3">Lyrics &amp; Metadata</h4>
+            </div>
+            <ul class="modal-chap-list">
+              <li><span class="bullet-dot"></span><span data-i18n="feat_3_1">Lyrics support, including local .lrc files and online finder</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_3_2">Advanced lyrics editor with synchronization tools</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_3_3">Metadata editor for tagging your collection</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_3_4">Album artwork display and handling</span></li>
+            </ul>
+          </div>
+
+          <!-- Capítulo 4 -->
+          <div class="features-modal-chapter">
+            <div class="modal-chap-title">
+              <span class="chap-badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="15" x="2" y="5" rx="2"/><rect width="8" height="6" x="12" y="12" rx="1" fill="currentColor" fill-opacity="0.2"/>
+                  <path d="m5 10 3 2-3 2v-4z" fill="currentColor"/>
+                </svg>
+              </span>
+              <h4 data-i18n="catTab4">Experience &amp; Customization</h4>
+            </div>
+            <ul class="modal-chap-list">
+              <li><span class="bullet-dot"></span><span data-i18n="feat_4_1">Floating mini player</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_4_2">Fullscreen viewer</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_4_3">Appearance &amp; accent customization</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_4_4">Discord Rich Presence</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_4_5">Last.fm scrobbling</span></li>
+              <li><span class="bullet-dot"></span><span data-i18n="feat_4_6">Keyboard shortcuts</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Sección Manifiesto / Tagline Reveal obligatorio (ai-design-skills B11) -->
+    <section class="tagline-reveal-section" id="manifiesto" aria-label="Philosophy">
+      <div class="wrap tagline-wrap">
+        <h2 class="tagline-headline" id="taglineWords" data-i18n="taglineHeadline">Your music, your way. A local music player, built with care for everyday listening.</h2>
+      </div>
+    </section>
+
+    <!-- Galería: Dos Columnas en Scroll Opuesto (Left UP, Right DOWN) -->
+    <section class="capturas-scroll-track gallery-scroll-track" id="galeria">
+      <span id="capturas" style="position:absolute; top:0; pointer-events:none;"></span>
+      <div class="capturas-sticky-viewport">
+        <header class="capturas-sticky-header">
+          <span class="capturas-eyebrow" data-i18n="navScreenshots">GALLERY</span>
+          <h2 class="capturas-title" data-i18n="capturasTitle">Interactive Gallery</h2>
+          <p class="capturas-sub" data-i18n="capturasLead">A dark, distraction-free environment crafted for deep listening sessions.</p>
+        </header>
+
+        <div class="capturas-split-viewport">
+          <!-- Columna Izquierda (Sube al hacer scroll hacia abajo) -->
+          <div class="gallery-col gallery-col-left" id="galleryColLeft">
+            <!-- 1. Home -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Home">
+                  <img src="images/home.png" alt="Aiiko Music Home" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <!-- 2. Now Playing -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Now Playing">
+                  <img src="images/now_playing.png" alt="Aiiko Music Now Playing" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <!-- 3. Playlists -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Playlists">
+                  <img src="images/playlist.png" alt="Aiiko Music Playlists" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <!-- 4. Artist Detail -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Artist Detail">
+                  <img src="images/artist_detail.png" alt="Aiiko Music Artist Detail" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Columna Derecha (Baja al hacer scroll hacia abajo) -->
+          <div class="gallery-col gallery-col-right" id="galleryColRight">
+            <!-- 5. Library -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Library">
+                  <img src="images/library.png" alt="Aiiko Music Library" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <!-- 6. Artists -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Artists">
+                  <img src="images/artist.png" alt="Aiiko Music Artists" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <!-- 7. Universal Search -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Search">
+                  <img src="images/universal_search.png" alt="Aiiko Music Search" width="1366" height="742" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+
+            <!-- 8. Lyrics Editor -->
+            <article class="capturas-dual-card">
+              <div class="dual-card-media">
+                <button type="button" class="zoom capturas-zoom-trigger" data-i18n-label="zoomLabel" aria-label="Lyrics Editor">
+                  <img src="images/lyrics_edit.png" alt="Aiiko Music Lyrics Editor" width="1052" height="727" loading="lazy" decoding="async">
+                  <span class="capturas-zoom-badge" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    <span data-i18n="zoomBtn">Enlarge</span>
+                  </span>
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formatos de Archivos (Sin recuadros, marquee continuo 100% infinito en bucle sin reinicio) -->
+    <section class="section formats-section wrap" id="formatos">
+      <div class="formats-header">
+        <span class="formats-eyebrow" data-reveal data-i18n="formatsEyebrow">Audio Engine &amp; Compatibility</span>
+        <h2 class="formats-title" data-reveal data-i18n="formatsTitle">Supported Formats</h2>
+        <p class="formats-sub" data-reveal data-i18n="formatsSub">
+          Aiiko Music plays the most common audio formats, including:
+        </p>
+      </div>
+
+      <!-- Carrusel Marquee continuo SIN RECUADRO con dos grupos idénticos -->
+      <div class="formats-marquee-wrap" aria-label="Supported audio formats">
+        <div class="formats-marquee-container">
+          <!-- Grupo 1 -->
+          <div class="formats-marquee-group">
+            <div class="format-item">
+              <img src="images/icons/flac.svg" alt="FLAC" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">FLAC</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/mp3.svg" alt="MP3" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">MP3</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/wav.svg" alt="WAV" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">WAV</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/ogg.svg" alt="OGG" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">OGG</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/acc.svg" alt="AAC" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">AAC</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/m4a.svg" alt="M4A" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">M4A</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/aiiko.svg" alt="AIIKO" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">AIIKO</span>
+            </div>
+          </div>
+
+          <!-- Grupo 2 (Duplicado idéntico para loop continuo sin reinicio) -->
+          <div class="formats-marquee-group" aria-hidden="true">
+            <div class="format-item">
+              <img src="images/icons/flac.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">FLAC</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/mp3.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">MP3</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/wav.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">WAV</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/ogg.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">OGG</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/acc.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">AAC</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/m4a.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">M4A</span>
+            </div>
+            <div class="format-item">
+              <img src="images/icons/aiiko.svg" alt="" class="format-icon-img" width="56" height="56" loading="lazy" decoding="async">
+              <span class="format-name">AIIKO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nueva Página Cinemática: Fondo completo de la interfaz, intro animada (logo luego letras) y CTA -->
+    <section class="experience-page-section" id="experiencia" aria-label="Aiiko Music Experience">
+      <!-- Fondo completo a pantalla completa con la interfaz del reproductor (sin rectángulos ni cajas) -->
+      <div class="experience-page-backdrop" aria-hidden="true">
+        <img src="images/home_UI.png" alt="" class="experience-page-bg-img" loading="lazy" decoding="async">
+        <div class="experience-page-bg-overlay" aria-hidden="true"></div>
+      </div>
+
+      <!-- Contenedor central libre y des-encapsulado -->
+      <div class="experience-page-stage">
+        <!-- Brand Actor: se anima apareciendo primero el logo en el centro y luego florecen las letras -->
+        <div class="experience-brand-actor" id="expBrandActor">
+          <img src="images/logo_full.svg" alt="Aiiko Music" width="96" height="96" class="experience-logo-img" id="expLogo">
+          <div class="experience-text-wrap" id="expText">
+            <span class="experience-text-name">Aiiko</span>
+            <span class="experience-text-sub">Music</span>
+          </div>
+        </div>
+
+        <!-- Indicador limpio y minimalista para Probar o Instalar que lleva a la última parte (#instalacion) -->
+        <div class="experience-cta-wrap" id="expCtaWrap">
+          <a href="#instalacion" class="experience-cta-btn" id="experienceCtaBtn" aria-label="Probar o instalar Aiiko Music">
+            <span class="experience-cta-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v13"/>
+                <path d="m6 10 6 6 6-6"/>
+                <path d="M4 20h16"/>
+              </svg>
+            </span>
+            <span class="experience-cta-label" data-i18n="experienceCtaLabel">Probar o instalar</span>
+            <span class="experience-cta-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m7 10 5 5 5-5"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="instalacion">
+      <h2 data-reveal data-i18n="installTitle">Installation</h2>
+      <p class="sub" data-reveal data-i18n="installSub">For Windows 10 and 11. The easiest way is to download the latest release.</p>
+
+      <div class="install-actions" data-reveal>
+        <a class="btn-dl btn-dl-primary" id="directDownloadBtn" href="https://github.com/HirayamaAiiko/Aiiko-Music/releases/latest" target="_blank" rel="noopener">
+          <span class="btn-dl-icon" aria-hidden="true">
+            <svg class="dl-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v13"/>
+              <path d="m6 10 6 6 6-6"/>
+              <path d="M4 20h16"/>
+            </svg>
+          </span>
+          <span class="btn-dl-content">
+            <span class="btn-dl-title" data-i18n="dlPrimaryTitle">Download latest release</span>
+            <span class="btn-dl-desc" id="dlBadge">Windows 10/11 · ZIP</span>
+          </span>
+        </a>
+
+        <a class="btn-dl btn-dl-secondary" href="https://github.com/HirayamaAiiko/Aiiko-Music/releases" target="_blank" rel="noopener">
+          <span class="btn-dl-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </span>
+          <span class="btn-dl-content">
+            <span class="btn-dl-title" data-i18n="dlSecondaryTitle">All releases</span>
+            <span class="btn-dl-desc" data-i18n="dlSecondaryDesc">Previous versions and release notes</span>
+          </span>
+        </a>
+      </div>
+
+      <ol class="steps" data-reveal>
+        <li data-i18n="step1">Download the ZIP file with the button above.</li>
+        <li data-i18n="step2">Extract it to a folder of your choice.</li>
+        <li data-i18n="step3">Open <code>Aiiko Music.exe</code> and follow the prompts shown on first launch.</li>
+      </ol>
+
+      <p class="note" data-reveal>
+        <span data-i18n="sourceNote">If you prefer to run it from source, the instructions are in the</span>
+        <a class="inline" href="https://github.com/HirayamaAiiko/Aiiko-Music#readme" target="_blank" rel="noopener">README</a><span data-i18n="sourceNoteAfter">.</span>
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span data-i18n="footerCredit">Aiiko Music · Developed by Aiiko Hirayama · © 2026 · GPL-3.0</span>
+    <nav data-i18n-label="footerNav" aria-label="Project links">
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="footerLicense">License</a>
+      <a href="https://github.com/HirayamaAiiko/Aiiko-Music#privacy" target="_blank" rel="noopener" data-i18n="footerPrivacy">Privacy</a>
+    </nav>
+  </footer>
+
+  <!-- Selector de idioma flotante reubicado en esquina inferior (sin tapar el encabezado) -->
+  <div class="lang-float" id="langFloat">
+    <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" data-i18n-label="langLabel" aria-label="Language">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+        <path d="M2 12h20"/>
+      </svg>
+      <span class="lang-code" id="langCode">EN</span>
+    </button>
+
+    <ul class="lang-menu" id="langMenu" role="menu" aria-labelledby="langToggle">
+      <li role="none">
+        <button type="button" class="lang-option" role="menuitemradio" aria-checked="true" data-lang="en" lang="en">
+          <span>English</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        </button>
+      </li>
+      <li role="none">
+        <button type="button" class="lang-option" role="menuitemradio" aria-checked="false" data-lang="es" lang="es">
+          <span>Español</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        </button>
+      </li>
+      <li role="none">
+        <button type="button" class="lang-option" role="menuitemradio" aria-checked="false" data-lang="ja" lang="ja">
+          <span>日本語</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        </button>
+      </li>
+      <li role="none">
+        <button type="button" class="lang-option" role="menuitemradio" aria-checked="false" data-lang="fr" lang="fr">
+          <span>Français</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Dock de navegación: texto en escritorio, barra de iconos en móvil -->
+  <nav class="dock" data-i18n-label="dockLabel" aria-label="Sections">
+    <div class="dock-links">
+      <a class="dock-link" href="#inicio" data-target="inicio">
+        <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span class="dock-label" data-i18n="navHome">Home</span>
+        <span class="dock-label-short" data-i18n="navHomeShort">Home</span>
+      </a>
+      <a class="dock-link" href="#funciones" data-target="funciones">
+        <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M12 12H3"/><path d="M16 6H3"/><path d="M12 18H3"/></svg>
+        <span class="dock-label" data-i18n="navFeatures">Features</span>
+        <span class="dock-label-short" data-i18n="navFeaturesShort">Features</span>
+      </a>
+      <a class="dock-link" href="#galeria" data-target="galeria">
+        <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+        <span class="dock-label" data-i18n="navScreenshots">Gallery</span>
+        <span class="dock-label-short" data-i18n="navScreenshotsShort">Gallery</span>
+      </a>
+      <a class="dock-link" href="#formatos" data-target="formatos">
+        <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
+        <span class="dock-label" data-i18n="navFormats">Formats</span>
+        <span class="dock-label-short" data-i18n="navFormatsShort">Formats</span>
+      </a>
+      <a class="dock-link" href="#instalacion" data-target="instalacion">
+        <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.3 4.14a1 1 0 0 0 .8 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg>
+        <span class="dock-label" data-i18n="navInstall">Installation</span>
+        <span class="dock-label-short" data-i18n="navInstallShort">Install</span>
+      </a>
+      <span class="dock-indicator" aria-hidden="true"></span>
+    </div>
+
+    <span class="dock-sep" aria-hidden="true"></span>
+
+    <a class="dock-cta" href="#instalacion">
+      <svg class="dock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
+      <span class="dock-label" data-i18n="navDownload">Download</span>
+      <span class="dock-label-short" data-i18n="navDownloadShort">Download</span>
+    </a>
+  </nav>
+
+  <!-- Visor de capturas a tamaño completo -->
+  <dialog class="lightbox" id="lightbox" data-i18n-label="shotsTitle" aria-label="Screenshots">
+    <button type="button" class="lightbox-close" data-i18n-label="closeLabel" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="lightbox-scroll">
+      <img id="lightboxImg" src="data:," alt="">
+    </div>
+  </dialog>
+
+  <script src="main.js"></script>
+</body>
+</html>
