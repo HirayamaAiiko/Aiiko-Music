@@ -7,7 +7,7 @@
   'use strict';
 
   // Control estricto de versión, limpieza de caché obsoleta y restauración de scroll
-  const SITE_VERSION = '1.17.9';
+  const SITE_VERSION = '1.17.10';
   try {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
